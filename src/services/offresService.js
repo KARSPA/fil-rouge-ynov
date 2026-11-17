@@ -6,6 +6,7 @@ export async function getOffres() {
         throw new Error("Erreur de récupération des offres");
     }
     return await response.json();
+}
 
 export async function getOfferById(id) {
   const response = await fetch(`${API_URL}/${id}`);
