@@ -1,8 +1,7 @@
-
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-import { Routes, Route } from "react-router-dom";
 import Navigation from './components/Navigation';
+import { Routes, Route } from "react-router-dom";
 import AccueilPage from './pages/AccueilPage';
 import AuthentificationPage from './pages/AuthentificationPage';
 import DetailOffrePage from './pages/DetailOffrePage';

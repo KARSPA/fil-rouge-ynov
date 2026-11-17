@@ -1,17 +1,92 @@
-/* 1. Le bandeau rayé : inexistant en Bootstrap */
+/* ===== Base ===== */
+body {
+    font-family: Verdana, Geneva, sans-serif;   /* la vraie police du web 90s */
+    background: #fdf6e3;
+    color: #1b1b1b;
+    font-size: 0.95rem;
+}
+h1, h2, .navbar-brand {
+    font-family: "Archivo Black", Verdana, sans-serif;
+}
+
+/* ===== Navbar ===== */
+.au-boulot-nav {
+    background: #780000;                        /* rouge sombre, sérieux */
+    border-bottom: 4px solid #0d6efd;           /* la touche de bleu */
+}
+.au-boulot-nav .nav-link {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+.au-boulot-nav .nav-link:hover,
+.au-boulot-nav .nav-link.active {              /* NavLink ajoute .active tout seul */
+    color: #ffd7d7 !important;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+.btn-nav-bleu {
+    background: #0d6efd;
+    border-radius: 0;
+    border: 2px solid #084298;
+}
+.btn-nav-bleu:hover {
+    background: #084298 !important;
+    color: #fff !important;
+}
+
+/* ===== Bandeau ===== */
 .banner {
     background: repeating-linear-gradient(45deg,
         #c1121f, #c1121f 24px, #780000 24px, #780000 48px);
-    border-bottom: 4px solid #1b1b1b;
+    border-bottom: 4px solid #0d6efd;
+    text-align: center;
+    padding: 18px 10px;
+}
+.banner h1, .banner p {
+    display: block;
+    width: fit-content;
+    margin: 0 auto 6px;
+}
+.banner h1 {
+    background: #1b1b1b;
+    color: #fff;
+    padding: 4px 18px;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.banner p {
+    background: #1b1b1b;
+    color: #ffe9ec;
+    padding: 3px 12px;
+    font-style: italic;
+    margin-bottom: 0;
 }
 
-/* 2. Le scroll horizontal de cards : inexistant en Bootstrap */
-.track { scroll-snap-type: x mandatory; }
-.lane { width: max-content; }
-.offer-card {           /* le contrat avec ton collègue */
-    flex: 0 0 240px;
-    scroll-snap-align: start;
+/* ===== Titre de rubrique ===== */
+.rubrique {
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #780000;
+    border-bottom: 3px solid #0d6efd;
+    padding-bottom: 4px;
 }
 
-/* 3. Optionnel : la typo Times, à mettre dans index.css global */
-body { font-family: "Times New Roman", serif; background: #fdf6e3; }
+/* ===== Zone des 5 dernières offres : 2 colonnes, scroll vertical ===== */
+.grille-offres {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);   /* deux par deux */
+    gap: 16px;
+    align-items: start;                       /* les cartes inégales ne s'étirent pas */
+}
+
+/* Le shadow, dans la DA : décalé, dur, touche de bleu */
+.offer-card {
+    box-shadow: 6px 6px 0 #0d6efd;
+    border: 2px solid #1b1b1b !important;
+    border-radius: 0 !important;
+}

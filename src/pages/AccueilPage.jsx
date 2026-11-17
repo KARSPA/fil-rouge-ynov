@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { getOffres } from "../services/offresService.js";
 import BarreRecherche from "../components/BarreRecherche.jsx"
+import OffreCarte from "../components/OffreCarte.jsx";
 
 export default function AccueilPage() {
     const [offers, setOffers] = useState([]);
-    const latestCount = 10; // les 10 dernières offres, pas de pagination ici
+    const latestCount = 5; // les 5 dernières offres, pas de pagination ici
+    const offres = offers.slice(0, latestCount);
+
 
     useEffect(() => {
         getOffres()
             .then(data => setOffers(data))
             .catch(error => console.error(error));
     }, []);
-
-    const latest = offers.slice(0, latestCount);
 
     return (
         <div className="container mt-4">
@@ -29,8 +30,8 @@ export default function AccueilPage() {
 
             <div className="track overflow-auto pb-3">
                 <div className="lane d-flex gap-3">
-                    {latest.map(offre => (
-                        <OfferCard key={offre.id} offer={offre} />
+                    {offres.map(offre => (
+                        <OffreCarte key={offre.id} offre={offre} />
                     ))}
                 </div>
             </div>
