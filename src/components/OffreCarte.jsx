@@ -1,10 +1,13 @@
-export default function OffreCard ({offre}) {
-
+export default function OffreCarte({ offre }) {
     return (
-        <div className="container mt-2">
-            <div className=" box-shadow border rounded p-4">
+        <div className="w-100">
+            <div className="border rounded p-4 offer-card">
                 <div className="d-flex gap-3">
-                    <img src="https://placehold.co/400x250" alt="image produit" className="rounded" width="300"/>
+                    <img
+                        src="https://placehold.co/400x250"
+                        alt="image offre"
+                        className="rounded w-100"
+                    />
                     <div className="d-flex flex-column container-fluid">
                         <div>
                             <p className="fs-4 mb-0">{offre.titre}</p>
@@ -16,36 +19,26 @@ export default function OffreCard ({offre}) {
                             <p><span className="badge bg-primary">{offre.lieu}</span></p>
                         </div>
                         <div className="d-flex flex-row gap-2">
-                            <p><span className="badge bg-primary">{offre.salaireAnnuelMin} - {offre.salaireAnnuelMax} € / an</span></p>
-                            <p><span className="badge bg-primary">Exp : {offre.expAnneeMini} année(s)</span></p>
+                            <p>
+                                <span className="badge bg-primary">
+                                    {offre.salaireAnnuelMin} - {offre.salaireAnnuelMax} € / an
+                                </span>
+                            </p>
+                            <p>
+                                <span className="badge bg-primary">Exp : {offre.expAnneeMini} année(s)</span>
+                            </p>
                         </div>
                         <div className="d-flex flex-row justify-content-between align-content-center">
-                            <p className="d-flex fst-italic" style={{height: 100 + "%", alignItems : "center"}}><span>Publiée le : {offre.datePublication}</span></p>
-                            <button className="d-block btn btn-primary rounded-pill">Voir l'offre</button>
+                            <p className="d-flex fst-italic" style={{ height: 100 + "%", alignItems: "center" }}>
+                                <span>Publiée le : {offre.datePublication}</span>
+                            </p>
+                            <button className="d-block btn btn-primary rounded-pill">
+                                Voir l'offre
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
-
-/*function OfferCard({ offre }) {
-    return (
-        <div className="card offer-card">
-            <div className="card-body">
-                <h3 className="card-title">{offre.titre}</h3>
-                <p className="card-text fst-italic">
-                    {offre.entreprise} — {offre.contrat}
-                </p>
-                <p className="card-text fw-bold text-danger">
-                    {offre.salaireAnnuelMin.toLocaleString('fr-FR')} 
-                    – {offre.salaireAnnuelMax.toLocaleString('fr-FR')} €
-                </p>
-                <button className="btn btn-danger">Postuler &gt;&gt;</button>
-            </div>
-        </div>
     );
 }
-
-export default OfferCard;*/

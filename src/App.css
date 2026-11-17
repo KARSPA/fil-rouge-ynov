@@ -35,19 +35,30 @@ h1, h2, .navbar-brand {
     background: #084298 !important;
     color: #fff !important;
 }
+.nav-connected-badge {
+    background: #198754;                       /* vert = connecté */
+    font-size: 0.8rem;
+    text-transform: none;
+}
 
-/* ===== Bandeau ===== */
+/* ===== Bandeau : fond rouge orangé propagande ===== */
 .banner {
-    background: repeating-linear-gradient(45deg,
-        #c1121f, #c1121f 24px, #780000 24px, #780000 48px);
+    position: relative;
+    background-image: url("/background_banner.png");
+    background-size: cover;        /* l'image couvre tout le bandeau, sans déformation */
+    background-position: center top;  /* PRIORITÉ AU HAUT DE L'IMAGE : c'est ce que tu demandes */
+    background-repeat: no-repeat;
     border-bottom: 4px solid #0d6efd;
     text-align: center;
-    padding: 18px 10px;
+    padding: 70px 10px 80px;      /* à ajuster selon la hauteur visible de l'image */
+    overflow: hidden;
 }
 .banner h1, .banner p {
     display: block;
     width: fit-content;
-    margin: 0 auto 6px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;                    /* le texte passe devant l'image, au cas où */
 }
 .banner h1 {
     background: #1b1b1b;
@@ -56,14 +67,14 @@ h1, h2, .navbar-brand {
     font-size: 2.2rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    margin-bottom: 10px;
+    margin: 0 auto 10px;
 }
 .banner p {
     background: #1b1b1b;
     color: #ffe9ec;
     padding: 3px 12px;
     font-style: italic;
-    margin-bottom: 0;
+    margin: 0 auto;
 }
 
 /* ===== Titre de rubrique ===== */
@@ -76,17 +87,26 @@ h1, h2, .navbar-brand {
     padding-bottom: 4px;
 }
 
-/* ===== Zone des 5 dernières offres : 2 colonnes, scroll vertical ===== */
-.grille-offres {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);   /* deux par deux */
-    gap: 16px;
-    align-items: start;                       /* les cartes inégales ne s'étirent pas */
+/* ===== Le cadre autour de la zone des offres ===== */
+.cadre-offres {
+    background: #fff;
+    border: 3px solid #1b1b1b;
+    box-shadow: 8px 8px 0 #c1121f;        /* ombre rouge, décalée, dure */
+    padding: 16px;
 }
 
-/* Le shadow, dans la DA : décalé, dur, touche de bleu */
+.grille-offres {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+.grille-offres > * {
+    height: 100%;        /* chaque carte remplit sa case en hauteur aussi */
+}
+
+/* ===== L'ombre des cartes ===== */
 .offer-card {
-    box-shadow: 6px 6px 0 #0d6efd;
+    box-shadow: 5px 5px 0 #0d6efd;          /* ombre bleue, décalée, dure */
     border: 2px solid #1b1b1b !important;
     border-radius: 0 !important;
 }
