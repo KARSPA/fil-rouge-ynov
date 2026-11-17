@@ -41,7 +41,7 @@ export default function AccueilPage() {
             </header>
 
             {/* Barre de recherche : ton composant existant,
-                le branchement réel sera fait par tes collègues */}
+                le branchement réel sera fait ultérieurement*/}
             <BarreRecherche />
 
             <h2 className="rubrique mt-4">Toutes les offres</h2>
@@ -49,7 +49,7 @@ export default function AccueilPage() {
             <div className="cadre-offres mt-3">
                 {aucunResultat ? (
                     <p className="text-center fst-italic mb-0">
-                        Aucune offre pour le moment... revenez bientôt !
+                        Aucune offre ! Soyez fiers travailleurs, c'est grâce à vous que le plein emploi est atteint !
                     </p>
                 ) : (
                     <>

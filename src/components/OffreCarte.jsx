@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"; 
+
 export default function OffreCarte({ offre }) {
     return (
         <div className="w-100">
@@ -32,9 +34,12 @@ export default function OffreCarte({ offre }) {
                             <p className="d-flex fst-italic" style={{ height: 100 + "%", alignItems: "center" }}>
                                 <span>Publiée le : {offre.datePublication}</span>
                             </p>
-                            <button className="d-block btn btn-primary rounded-pill">
-                                Voir l'offre
-                            </button>
+                            <Link
+    to={`/offres/${offre.id}`}                // ← template literal : l'id de CETTE carte
+    className="d-block btn btn-primary rounded-pill"
+>
+    Voir l'offre
+</Link> 
                         </div>
                     </div>
                 </div>

@@ -11,10 +11,17 @@ h1, h2, .navbar-brand {
 
 /* ===== Navbar ===== */
 .au-boulot-nav {
-    background: #780000;                        /* rouge sombre, sérieux */
-    border-bottom: 4px solid #0d6efd;           /* la touche de bleu */
+    position: relative;                  /* le repère du pseudo-élément */
+    background-color: #780000;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 140px 100%;
+    border-bottom: 4px solid #0d6efd;
+    min-height: 64px;                    /* hauteur mini garantie */
 }
+
 .au-boulot-nav .nav-link {
+    text-shadow: 1px 1px 0 #1b1b1b; 
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: bold;
@@ -109,4 +116,48 @@ h1, h2, .navbar-brand {
     box-shadow: 5px 5px 0 #0d6efd;          /* ombre bleue, décalée, dure */
     border: 2px solid #1b1b1b !important;
     border-radius: 0 !important;
+}
+
+/* ===== Fiche détail : la même DA que les cartes ===== */
+.fiche-offre {
+    background: #fff;
+    border: 2px solid #1b1b1b;
+    border-radius: 0;
+    box-shadow: 6px 6px 0 #0d6efd;      /* l'ombre bleue des cartes d'accueil */
+}
+/* Vignette de la fiche détail : taille fixe, point final */
+.fiche-offre-img {
+    width: 220px;
+    height: 150px;
+    object-fit: cover;      /* quelle que soit l'image, elle remplit le cadre sans déformer */
+}
+
+/* ===== Bandeau d'actions : la même DA que la navbar ===== */
+.bandeau-actions {
+    background: #780000;                 /* rouge sombre, comme la navbar */
+    border: 2px solid #1b1b1b;
+    box-shadow: 6px 6px 0 #c1121f;       /* l'ombre rouge, comme le cadre des offres */
+    margin-top: 16px;
+}
+.btn-actions-bandeau {
+    background: #0d6efd;                /* bleu, comme "Déposer une annonce" */
+    border: 2px solid #084298;
+    border-radius: 0;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+.btn-actions-bandeau:hover {
+    background: #084298;
+    color: #fff;
+}
+.btn-actions-suppr {
+    background: #c1121f;                /* le rouge vif pour l'action dangereuse */
+    border-color: #780000;
+}
+.btn-actions-suppr:hover {
+    background: #780000;
+    color: #fff;
 }
