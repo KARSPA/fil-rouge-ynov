@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getOfferById } from "../services/offresService";
 
-// TEMPORAIRE : simulation du rôle, même principe que la navbar.
-// À remplacer par : const { user } = useAuth();  quand l'AuthContext existera.
+// TEMPORAIRE : simulation du rôle (à remplacer par l'AuthContext)
 const fakeAdmin = { nom: "Diane", role: "admin" };
-const fakeUser = { nom: "Ivan", role: "user" };
+const fakeUser = { nom: "Kevin", role: "user" };
 
 function DetailOffrePage() {
     const { id } = useParams();
@@ -31,16 +30,16 @@ function DetailOffrePage() {
                 <div className="col-lg-9">
                     {/* ===== La fiche : même DA que les cartes de l'accueil ===== */}
                     <div className="fiche-offre p-4">
-                        <div className="d-flex gap-3">
+                        <div className="d-flex gap-3 align-items-start">
                             <img
                                 src="https://placehold.co/400x250"
                                 alt="image offre"
                                 className="rounded fiche-offre-img flex-shrink-0"
                             />
                             <div>
-                                <h1 className="fs-3 rubrique-detail">{offer.titre}</h1>
+                                <h1 className="fs-3 mb-1">{offer.titre}</h1>
                                 <p className="mb-2 fst-italic">{offer.entreprise} - {offer.lieu}</p>
-                                <div className="d-flex flex-wrap gap-2 mb-3">
+                                <div className="d-flex flex-wrap gap-2">
                                     <span className="badge bg-primary">{offer.domaine}</span>
                                     <span className="badge bg-primary">{offer.contrat}</span>
                                     <span className="badge bg-primary-subtle text-primary">
@@ -53,7 +52,7 @@ function DetailOffrePage() {
                             </div>
                         </div>
 
-                        <p className="mt-3">{offer.description}</p>
+                        <p className="mt-3 mb-1">{offer.description}</p>
                         <p className="fst-italic text-secondary mb-0">
                             Publiée le : {offer.datePublication}
                         </p>
@@ -61,27 +60,27 @@ function DetailOffrePage() {
 
                     {/* ===== Le bandeau d'actions selon le rôle ===== */}
                     <div className="bandeau-actions d-flex justify-content-center gap-3 py-3">
-                        {/* Visiteur : pas encore connecté → on le pousse vers la connexion */}
+                        {/* Visiteur : pas connecté → on le pousse vers la connexion */}
                         {!user && (
-                            <Link to="/connexion" className="btn btn-actions-bandeau">
-                                Connectez-vous pour postuler
+                            <Link to="/connexion" className="btn-actions-bandeau">
+                                Connecte-toi pour rejoindre les rangs des travailleurs !
                             </Link>
                         )}
 
-                        {/* User connecté : postuler (factice pour l'instant) */}
+                        {/* User connecté : postuler (fictif pour l'instant) */}
                         {user && !isAdmin && (
-                            <button className="btn btn-actions-bandeau">
-                                Postuler
+                            <button className="btn-actions-bandeau">
+                                Au charbon !
                             </button>
                         )}
 
                         {/* Admin connecté : modifier + supprimer */}
                         {isAdmin && (
                             <>
-                                <button className="btn btn-actions-bandeau">
+                                <button className="btn-actions-bandeau btn-actions-modif">
                                     Modifier l'offre
                                 </button>
-                                <button className="btn btn-actions-bandeau btn-actions-suppr">
+                                <button className="btn-actions-bandeau btn-actions-suppr">
                                     Supprimer l'offre
                                 </button>
                             </>

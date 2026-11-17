@@ -11,15 +11,15 @@ export default function BarreRecherche() {
     }
 
     return (
-        <form className="input-group mt-4" onSubmit={handleSubmit}>
+        <form className="mt-4 barre-recherche" onSubmit={handleSubmit}>
             <input
                 type="search"
-                className="form-control"
+                className="barre-recherche-input"
                 placeholder="Métier, entreprise, mot-clé..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
             />
-            <button className="btn btn-danger fw-bold" type="submit">
+            <button className="barre-recherche-btn" type="submit">
                 Fouiller
             </button>
         </form>

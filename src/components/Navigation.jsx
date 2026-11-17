@@ -11,14 +11,14 @@ export default function Navigation() {
     return (
         <nav className="navbar au-boulot-nav px-3 gap-2">
             {/* ===== GAUCHE : marque + navigation ===== */}
-            <NavLink to="/" className="navbar-brand text-white fw-bold me-3">
+            <NavLink to="/" className="navbar-brand au-boulot-brand me-3">
                 AU BOULOT !
             </NavLink>
             <NavLink to="/" className="nav-link text-white">
                 Accueil
             </NavLink>
             {isAdmin && (
-                <NavLink to="/ajout" className="nav-link btn-nav-bleu">
+                <NavLink to="/ajout" className="btn-nav-bleu">
                     Déposer une annonce
                 </NavLink>
             )}
@@ -28,7 +28,7 @@ export default function Navigation() {
                 {/* Pas connecté : Connexion + les boutons de démo */}
                 {!user && (
                     <>
-                        <NavLink to="/connexion" className="nav-link btn-nav-bleu">
+                        <NavLink to="/connexion" className="btn-nav-bleu">
                             Connexion
                         </NavLink>
                         <button className="btn btn-sm btn-outline-light"
@@ -45,11 +45,10 @@ export default function Navigation() {
                 {/* Connecté : badge vert + Déconnexion tout à droite */}
                 {user && (
                     <>
-                        <span className="badge nav-connected-badge">
+                        <span className="nav-connected-badge">
                             ● {user.nom} ({user.role})
                         </span>
-                        <button className="btn btn-sm btn-outline-light"
-                                onClick={() => setUser(null)}>
+                        <button className="btn-nav-bleu" onClick={() => setUser(null)}>
                             Déconnexion
                         </button>
                     </>
