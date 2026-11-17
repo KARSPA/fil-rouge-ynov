@@ -1,0 +1,17 @@
+/* 1. Le bandeau rayé : inexistant en Bootstrap */
+.banner {
+    background: repeating-linear-gradient(45deg,
+        #c1121f, #c1121f 24px, #780000 24px, #780000 48px);
+    border-bottom: 4px solid #1b1b1b;
+}
+
+/* 2. Le scroll horizontal de cards : inexistant en Bootstrap */
+.track { scroll-snap-type: x mandatory; }
+.lane { width: max-content; }
+.offer-card {           /* le contrat avec ton collègue */
+    flex: 0 0 240px;
+    scroll-snap-align: start;
+}
+
+/* 3. Optionnel : la typo Times, à mettre dans index.css global */
+body { font-family: "Times New Roman", serif; background: #fdf6e3; }
