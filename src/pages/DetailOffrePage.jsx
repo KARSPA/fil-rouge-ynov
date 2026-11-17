@@ -5,7 +5,7 @@ import { getOfferById } from "../services/offresService";
 // TEMPORAIRE : simulation du rôle, même principe que la navbar.
 // À remplacer par : const { user } = useAuth();  quand l'AuthContext existera.
 const fakeAdmin = { nom: "Diane", role: "admin" };
-const fakeUser = { nom: "Kevin", role: "user" };
+const fakeUser = { nom: "Ivan", role: "user" };
 
 function DetailOffrePage() {
     const { id } = useParams();

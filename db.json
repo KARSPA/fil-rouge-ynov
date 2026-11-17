@@ -141,5 +141,28 @@
         "expAnneeMini": 8,
         "datePublication": "01/05/2026"
       }
-    ]
+    ],
+    "users": [
+    {
+      "id": 1,
+      "nom": "Diane",
+      "email": "diane@auboulot.fr",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "nom": "Yvan",
+      "email": "Yvan@auboulot.fr",
+      "password": "user123",
+      "role": "user"
+    },
+    {
+      "id": 3,
+      "nom": "Zahia",
+      "email": "Zahia@auboulot.fr",
+      "password": null,
+      "role": "visiteur"
+    }
+  ]
 }
