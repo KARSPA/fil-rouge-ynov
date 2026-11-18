@@ -181,7 +181,6 @@ export default function AuthentificationPage() {
                             )}
                         </p>
                     </div>
-
                 </div>
             </div>
         </div>
