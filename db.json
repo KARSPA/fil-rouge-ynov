@@ -1,54 +1,84 @@
 {
   "offres": [
-      {
-        "id": "1",
-        "titre": "Développeur Mainframe H/F",
-        "description": "Blablabla on s'en fou ....",
-        "entreprise": "La Banque Postale",
-        "contrat": "CDI",
-        "domaine": "Développement",
-        "lieu": "Bordeaux - 33",
-        "salaireAnnuelMin": 35000,
-        "salaireAnnuelMax": 45000,
-        "expAnneeMini": 2,
-        "datePublication": "15/09/2026"
-      },{
-        "id": "2",
-        "titre": "Développeur Mainframe H/F",
-        "description": "Blablabla on s'en fou ....",
-        "entreprise": "CGI",
-        "contrat": "CDI",
-        "domaine": "Développement",
-        "lieu": "Le Haillan - 33",
-        "salaireAnnuelMin": 35000,
-        "salaireAnnuelMax": 45000,
-        "expAnneeMini": 3,
-        "datePublication": "15/11/2026"
-      },{
-        "id": "3",
-        "titre": "Technicien zOS H/F",
-        "description": "Super cool raconte pas ta vie",
-        "entreprise": "IBM France",
-        "contrat": "CDI",
-        "domaine": "Réseau",
-        "lieu": "Montpellier - 34",
-        "salaireAnnuelMin": 50000,
-        "salaireAnnuelMax": 60000,
-        "expAnneeMini": 5,
-        "datePublication": "30/10/2025"
-      },{
-        "id": "4",
-        "titre": "Expert cybersécurité H/F",
-        "description": "lorem ipsum ....",
-        "entreprise": "La Banque Postale",
-        "contrat": "CDD",
-        "domaine": "Cybersécurité",
-        "lieu": "Paris - 75",
-        "dureeContrat": "6 mois",
-        "salaireAnnuelMin": 60000,
-        "salaireAnnuelMax": 65000,
-        "expAnneeMini": 8,
-        "datePublication": "01/05/2026"
-      }
-    ]
+    {
+      "id": "1",
+      "titre": "Développeur Mainframe H/F",
+      "description": "Blablabla on s'en fou ....",
+      "entreprise": "La Banque Postale",
+      "contrat": "CDI",
+      "domaine": "Développement",
+      "lieu": "Bordeaux - 33",
+      "salaireAnnuelMin": 35000,
+      "salaireAnnuelMax": 45000,
+      "expAnneeMini": 2,
+      "datePublication": "15/09/2026"
+    },
+    {
+      "id": "2",
+      "titre": "Développeur Mainframe H/F",
+      "description": "Blablabla on s'en fou ....",
+      "entreprise": "CGI",
+      "contrat": "CDI",
+      "domaine": "Développement",
+      "lieu": "Le Haillan - 33",
+      "salaireAnnuelMin": 35000,
+      "salaireAnnuelMax": 45000,
+      "expAnneeMini": 3,
+      "datePublication": "15/11/2026"
+    },
+    {
+      "id": "3",
+      "titre": "Technicien zOS H/F",
+      "description": "Super cool raconte pas ta vie",
+      "entreprise": "IBM France",
+      "contrat": "CDI",
+      "domaine": "Réseau",
+      "lieu": "Montpellier - 34",
+      "salaireAnnuelMin": 50000,
+      "salaireAnnuelMax": 60000,
+      "expAnneeMini": 5,
+      "datePublication": "30/10/2025"
+    },
+    {
+      "id": "4",
+      "titre": "Expert cybersécurité H/F",
+      "description": "lorem ipsum ....",
+      "entreprise": "La Banque Postale",
+      "contrat": "CDD",
+      "domaine": "Cybersécurité",
+      "lieu": "Paris - 75",
+      "dureeContrat": "6 mois",
+      "salaireAnnuelMin": 60000,
+      "salaireAnnuelMax": 65000,
+      "expAnneeMini": 8,
+      "datePublication": "01/05/2026"
+    },
+    {
+      "titre": "SUPER JOB",
+      "description": "",
+      "entreprise": "",
+      "contrat": "",
+      "domaine": "",
+      "lieu": "Apt - 84",
+      "salaireAnnuelMin": 0,
+      "salaireAnnuelMax": 40000,
+      "expAnneeMini": 0,
+      "datePublication": "18/11/2026",
+      "id": "8D8IzFCatkQ"
+    },
+    {
+      "titre": "SUPER JOB",
+      "description": "Travaillez très dur pour une misère.",
+      "entreprise": "ESN",
+      "contrat": "Freelance",
+      "domaine": "Développement",
+      "lieu": "Bordeaux - 33",
+      "salaireAnnuelMin": 10000,
+      "salaireAnnuelMax": 25000,
+      "expAnneeMini": 7,
+      "datePublication": "18/11/2026",
+      "id": "aucBvfUGXPs"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
