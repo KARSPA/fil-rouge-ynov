@@ -136,6 +136,46 @@
       "salaireAnnuelMax": 65000,
       "expAnneeMini": 8,
       "datePublication": "01/05/2026"
+    },
+    {
+      "id": "11",
+      "titre": "Expert cybersécurité H/F",
+      "description": "lorem ipsum ....",
+      "entreprise": "La Banque Postale",
+      "contrat": "CDD",
+      "domaine": "Cybersécurité",
+      "lieu": "Paris - 75",
+      "dureeContrat": "6 mois",
+      "salaireAnnuelMin": 60000,
+      "salaireAnnuelMax": 65000,
+      "expAnneeMini": 8,
+      "datePublication": "01/05/2026"
+    },{
+      "id": "12",
+      "titre": "Expert cybersécurité H/F",
+      "description": "lorem ipsum ....",
+      "entreprise": "La Banque Postale",
+      "contrat": "CDD",
+      "domaine": "Cybersécurité",
+      "lieu": "Paris - 75",
+      "dureeContrat": "6 mois",
+      "salaireAnnuelMin": 60000,
+      "salaireAnnuelMax": 65000,
+      "expAnneeMini": 8,
+      "datePublication": "01/05/2026"
+    },
+    {
+      "titre": "Manager",
+      "description": "Manager",
+      "entreprise": "LBP",
+      "contrat": "Freelance",
+      "domaine": "Cybersécurité",
+      "lieu": "Bordeaux - 33",
+      "salaireAnnuelMin": 1,
+      "salaireAnnuelMax": 13,
+      "expAnneeMini": 56,
+      "datePublication": "18/11/2026",
+      "id": "ZUjBJQlU3PE"
     }
   ],
   "users": [
