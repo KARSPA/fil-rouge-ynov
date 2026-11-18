@@ -27,3 +27,17 @@ export async function modifyOffer(id, newOffer) {
     throw new Error("Erreur lors de la modification de l'annonce");
   }
 }
+
+export async function addOffer(offre) {
+    const response = await fetch(`${API_URL}`, {
+            method: "POST",
+            body: JSON.stringify(offre),
+            }
+        );
+
+    if (!response.ok) {
+        throw new Error("Erreur lors de l'ajout de l'offre ...");
+    }
+
+    return await response.json()
+}

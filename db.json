@@ -4,13 +4,13 @@
       "id": "1",
       "titre": "Développeur Mainframe H/F",
       "description": "Blablabla on s'en fou ....",
-      "entreprise": "La",
+      "entreprise": "La Banque Postale",
       "contrat": "CDI",
       "domaine": "Développement",
       "lieu": "Bordeaux - 33",
-      "salaireAnnuelMin": "3333",
+      "salaireAnnuelMin": 35000,
       "salaireAnnuelMax": 45000,
-      "expAnneeMini": 56,
+      "expAnneeMini": 2,
       "datePublication": "15/09/2026"
     },
     {
@@ -150,6 +150,19 @@
       "salaireAnnuelMax": 65000,
       "expAnneeMini": 8,
       "datePublication": "01/05/2026"
+    },
+    {
+      "titre": "Manager",
+      "description": "Manager",
+      "entreprise": "LBP",
+      "contrat": "Freelance",
+      "domaine": "Cybersécurité",
+      "lieu": "Bordeaux - 33",
+      "salaireAnnuelMin": 1,
+      "salaireAnnuelMax": 13,
+      "expAnneeMini": 56,
+      "datePublication": "18/11/2026",
+      "id": "ZUjBJQlU3PE"
     }
   ],
   "users": [
