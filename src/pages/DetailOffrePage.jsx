@@ -1,61 +1,94 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getOfferById } from "../services/offresService";
+import useAuth from "../hooks/useAuth";
 
-function DetailOffrePage() {
-  const { id } = useParams();
+export default function DetailOffrePage() {
+    const { id } = useParams();
+    const [offer, setOffer] = useState(null);
 
-  const [offer, setOffer] = useState(null);
+    // Le rôle vient du contexte partagé maintenant
+    const { user } = useAuth();
+    const isAdmin = user?.role === "admin";
 
-  useEffect(() => {
-    getOfferById(id)
-      .then((data) => {
-        setOffer(data);
-      })
-      .catch((error) => console.error(error));
-  }, [id]);
+    useEffect(() => {
+        getOfferById(id)
+            .then(data => setOffer(data))
+            .catch(error => console.error(error));
+    }, [id]);
 
-  if (!offer) {
-    return <p className='container mt-5'> Chargement...</p>;
-  }
+    if (!offer) {
+        return <p className="container mt-5">Chargement...</p>;
+    }
 
-  return (
-    <div className='container mt-5'>
-      <div>
-        <h1 className='h1'>{offer.titre}</h1>
-        <span className='h3'>{offer.entreprise} - </span>
-        <span className='h3 text-secondary'>{offer.lieu}</span>
-        <h5 className='text-secondary'>{offer.datePublication}</h5>
-        <p className='mt-4 col-6'>{offer.description}</p>
-        <span className='mb-0 fw-semibold'>Contrat : </span>
-        <span>{offer.contrat}</span>
-        <div className='my-2'>
-          <p className='mb-0 fw-semibold'>Salaire annuel :</p>
-          <span className='badge bg-primary-subtle text-primary'>
-            {offer.salaireAnnuelMin}€
-          </span>
-          <span> - </span>
-          <span className='badge bg-primary-subtle text-primary'>
-            {offer.salaireAnnuelMax}€
-          </span>
+    return (
+        <div className="container mt-4 mb-5">
+            <div className="row justify-content-center">
+                <div className="col-lg-9">
+                    {/* ===== La fiche : même DA que les cartes de l'accueil ===== */}
+                    <div className="fiche-offre p-4">
+                        <div className="d-flex gap-3 align-items-start">
+                            <img
+                                src="https://placehold.co/400x250"
+                                alt="image offre"
+                                className="rounded fiche-offre-img flex-shrink-0"
+                            />
+                            <div>
+                                <h1 className="fs-3 mb-1">{offer.titre}</h1>
+                                <p className="mb-2 fst-italic">{offer.entreprise} - {offer.lieu}</p>
+                                <div className="d-flex flex-wrap gap-2">
+                                    <span className="badge bg-primary">{offer.domaine}</span>
+                                    <span className="badge bg-primary">{offer.contrat}</span>
+                                    <span className="badge bg-primary-subtle text-primary">
+                                        {offer.salaireAnnuelMin} - {offer.salaireAnnuelMax} € / an
+                                    </span>
+                                    <span className="badge bg-primary-subtle text-primary">
+                                        Exp : {offer.expAnneeMini} an(s)
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p className="mt-3 mb-1">{offer.description}</p>
+                        <p className="fst-italic text-secondary mb-0">
+                            Publiée le : {offer.datePublication}
+                        </p>
+                    </div>
+
+                    {/* ===== Le bandeau d'actions selon le rôle (réel, enfin) ===== */}
+                    <div className="bandeau-actions d-flex justify-content-center gap-3 py-3">
+                        {/* Visiteur : pas connecté → on le pousse vers la connexion */}
+                        {!user && (
+                            <Link to="/connexion" className="btn-actions-bandeau">
+                                Connecte-toi et rejoins les rangs !
+                            </Link>
+                        )}
+
+                        {/* User connecté : candidature (fictive pour l'instant) */}
+                        {user && !isAdmin && (
+                            <button className="btn-actions-bandeau">
+                                Au charbon !
+                            </button>
+                        )}
+
+                        {/* Admin connecté : modifier + supprimer */}
+                        {isAdmin && (
+                            <>
+                                <button className="btn-actions-bandeau btn-actions-modif">
+                                    Modifier l'offre
+                                </button>
+                                <button className="btn-actions-bandeau btn-actions-suppr">
+                                    Supprimer l'offre
+                                </button>
+                            </>
+                        )}
+                    </div>
+
+                    <div className="text-center mt-3">
+                        <Link to="/" className="btn btn-outline-dark">← Retour aux offres</Link>
+                    </div>
+                </div>
+            </div>
         </div>
-        <span className='mb-0 fw-semibold'>
-          Année{offer.expAnneeMini > 1 ? "s" : ""} d'expérience minimum :
-        </span>
-        <span>{" " + offer.expAnneeMini} ans.</span>
-
-        {/*Admin actions*/}
-        <div className='mt-2'>
-          <button className='text-warning-emphasis bg-warning-subtle btn me-2'>
-            Modifier l'offre
-          </button>
-          <button className='text-danger-emphasis bg-danger-subtle btn'>
-            Supprimer l'offre
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
-
-export default DetailOffrePage;
