@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getOfferById, modifyOffer } from "../services/offresService";
+import { DOMAINES, TYPE_CONTRAT } from "../assets/constantes.js";
 
 function DetailOffrePage() {
   const { id } = useParams();
@@ -14,6 +15,7 @@ function DetailOffrePage() {
   const [salaireAnnuelMin, setSalaireMin] = useState(null);
   const [salaireAnnuelMax, setSalaireMax] = useState(null);
   const [contrat, setContrat] = useState(null);
+  const [domaine, setDomaine] = useState(null);
   const [expAnneeMini, setMinExp] = useState(null);
   useEffect(() => {
     getOfferById(id)
@@ -31,9 +33,11 @@ function DetailOffrePage() {
     setSalaireMax(offer.salaireAnnuelMax);
     setContrat(offer.contrat);
     setMinExp(offer.expAnneeMini);
+    setDomaine(offer.domaine);
     setModify(true);
   }
-  async function handleSubmitModif() {
+  async function handleSubmitModif(e) {
+    e.preventDefault();
     try {
       const newOffer = {
         titre,
@@ -41,25 +45,29 @@ function DetailOffrePage() {
         lieu,
         description,
         contrat,
-        expAnneeMini: Number(expAnneeMini),
-        salaireAnnuelMin: Number(salaireAnnuelMin),
-        salaireAnnuelMax: Number(salaireAnnuelMax),
+        domaine,
+        expAnneeMini,
+        salaireAnnuelMin,
+        salaireAnnuelMax,
       };
 
       await modifyOffer(id, newOffer);
+      setModify(false);
+      setOffer({ ...offer, ...newOffer });
     } catch (error) {
       console.error("Error:", error);
       alert("Erreur lors de la modification de l'annonce.");
     }
   }
+
   if (!offer) {
     return <p className='container mt-5'> Chargement...</p>;
   }
   if (modify) {
     return (
       <div className='container mt-5'>
-        <form>
-          <label>Titre</label>
+        <form className='row'>
+          <label className='form-label'>Titre</label>
           <input
             className='form-control mb-3'
             value={titre}
@@ -67,73 +75,139 @@ function DetailOffrePage() {
             required='required'
             onChange={(e) => setTitre(e.target.value)}
           />
-          <label>Entreprise</label>
-          <input
-            className='form-control mb-3'
-            value={entreprise}
-            placeholder='Entreprise'
-            required='required'
-            onChange={(e) => setEntreprise(e.target.value)}
-          />
-          <label>Lieu de l'annonce</label>
-          <input
-            className='form-control mb-3'
-            value={lieu}
-            placeholder="Lieu de l'annonce"
-            required='required'
-            onChange={(e) => setLieu(e.target.value)}
-          />
-          <label>Description de l'annonce</label>
-          <textarea
-            className='form-control mb-3'
-            value={description}
-            placeholder="Description de l'annonce"
-            required='required'
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <label>Type de contrat</label>
-          <input
-            className='form-control mb-3'
-            value={contrat}
-            placeholder='CDI, CDD, ...'
-            required='required'
-            onChange={(e) => setContrat(e.target.value)}
-          />
-          <label>Années d'expérience</label>
-          <input
-            type='number'
-            className='form-control mb-3'
-            value={expAnneeMini}
-            placeholder="Années d'expérience minimum"
-            required='required'
-            onChange={(e) => setMinExp(e.target.value)}
-          />
-          <input
-            type='number'
-            className=' mb-3 col-2'
-            value={salaireAnnuelMin}
-            placeholder='Salaire annuel minimum'
-            required='required'
-            onChange={(e) => setSalaireMin(e.target.value)}
-          />
-          <input
-            type='number'
-            className=' mb-3 col-2'
-            value={salaireAnnuelMax}
-            placeholder='Salaire annuel maximum'
-            required='required'
-            onChange={(e) => setSalaireMax(e.target.value)}
-          />
 
-          {/*Admin actions*/}
-          <br />
-          <button
-            onClick={handleSubmitModif}
-            className='text-success-emphasis bg-success-subtle btn me-2'
-          >
-            Valider la modification
-          </button>
+          <label className='form-label'>Description de l'annonce</label>
+          <textarea
+            className='form-control mb-2'
+            id='description'
+            placeholder="Décrivez les missions, l'équipe, etc ..."
+            style={{ height: 200 + "px" }}
+            value={description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            required='required'
+          ></textarea>
+          <div className='col-md-4'>
+            <label className='form-label'>Entreprise</label>
+            <input
+              className='form-control mb-3'
+              value={entreprise}
+              placeholder='Entreprise'
+              required='required'
+              onChange={(e) => setEntreprise(e.target.value)}
+            />
+          </div>
+          <div className='col-md-4'>
+            <label className='form-label'>Type de contrat</label>
+            <select
+              required='required'
+              id='contrat'
+              className='form-select'
+              onChange={(e) => {
+                setContrat(e.target.value);
+              }}
+              value={contrat}
+            >
+              <option value=''>Choisir ...</option>
+              {TYPE_CONTRAT.map((entry) => (
+                <option key={entry} value={entry}>
+                  {entry}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className='col-md-4'>
+            <label htmlFor='domaine' className='form-label'>
+              Domaine
+            </label>
+            <select
+              required='required'
+              id='domaine'
+              className='form-select'
+              onChange={(e) => {
+                setDomaine(e.target.value);
+              }}
+              value={domaine}
+            >
+              <option value=''>Choisir ...</option>
+              {DOMAINES.map((entry) => (
+                <option key={entry} value={entry}>
+                  {entry}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className='col-md-4'>
+            <label htmlFor='salaireMin' className='form-label'>
+              Salaire annuel minimum :
+            </label>
+            <input
+              required='required'
+              type='number'
+              className='form-control'
+              id='salaireMin'
+              onChange={(e) => {
+                setSalaireMin(Number(e.target.value));
+              }}
+              value={salaireAnnuelMin}
+            />
+          </div>
+          <div className='col-md-4'>
+            <label htmlFor='salaireMax' className='form-label'>
+              Salaire annuel maximum :
+            </label>
+            <input
+              type='number'
+              className='form-control'
+              id='salaireMax'
+              required='required'
+              value={salaireAnnuelMax}
+              onChange={(e) => {
+                setSalaireMax(Number(e.target.value));
+              }}
+            />
+          </div>
+          <div className='col-md-4'>
+            <label htmlFor='expAnneeMini' className='form-label'>
+              Années d'expériences requises :
+            </label>
+            <input
+              type='number'
+              className='form-control'
+              id='expAnneeMini'
+              required='required'
+              onChange={(e) => {
+                setMinExp(Number(e.target.value));
+              }}
+              value={expAnneeMini}
+            />
+          </div>
+          <div className='col-md-8'>
+            <label htmlFor='ville' className='form-label'>
+              Lieu
+            </label>
+            <input
+              type='text'
+              className='form-control'
+              id='ville'
+              required='required'
+              onChange={(e) => {
+                lieu(e.target.value);
+              }}
+              value={lieu}
+            />
+          </div>
         </form>
+        {/*Admin actions*/}
+        <br />
+        <button
+          onClick={(e) => handleSubmitModif(e)}
+          className='text-success-emphasis bg-success-subtle btn me-2'
+        >
+          Valider la modification
+        </button>
+
         <button
           onClick={() => setModify(false)}
           className='text-secondary-emphasis bg-secondary-subtle btn me-2'
