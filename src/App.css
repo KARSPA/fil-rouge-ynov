@@ -392,7 +392,7 @@ h1, h2, .navbar-brand {
 
 .none-domain-filter-btn.active {
     background: #c1121f;           /* rouge sombre au survol */
-    color: #fff;
+    color: #fff;}
 .barre-recherche-btn:hover {
     background: var(--rouge-sombre);
     color: var(--blanc);
