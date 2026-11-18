@@ -241,3 +241,52 @@ h1, h2, .navbar-brand {
     background: #780000;
     color: #fff;
 }
+
+
+.checkbox-filter-btn {
+    background: transparent;           /* rouge vif DA */
+    border: 1px solid #333;
+    border-radius: 0;
+    color: black;
+    padding: 8px 20px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+.checkbox-filter-btn:hover {
+    background: darkorange;           /* rouge sombre au survol */
+    color: #fff;
+}
+.checkbox-filter-btn.active {
+    background: darkorange;           /* rouge sombre au survol */
+    color: #fff;
+}
+
+
+.accordion-shadow{
+    outline: 1px solid #1b1b1b;
+    box-shadow: 5px 5px 0 #c1121f; /* l'ombre rouge dure, comme les cartes */
+}
+
+
+.none-domain-filter-btn{
+    background: transparent;           /* rouge vif DA */
+    border: 2px solid #1b1b1b;
+    border-radius: 0;
+    color: black;
+    padding: 8px 20px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.none-domain-filter-btn.active {
+    background: #c1121f;           /* rouge sombre au survol */
+    color: #fff;
+}

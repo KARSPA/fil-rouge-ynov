@@ -30,7 +30,6 @@ export async function getOffresWithStringFilter(filters) {
 
     const FILTERS = convertFiltersToString(filters);
 
-    console.log("filtres : ", FILTERS)
     const FINAL_URL = `http://localhost:3000/offres?_where={"or":${FILTERS}}`;
 
 

@@ -53,7 +53,7 @@ export default function OffreCarte({ offre }) {
                 to={`/offres/${offre.id}`}
                 className='d-block btn btn-primary rounded-pill'
               >
-                Voir l'offre
+                Voir <span>{"->"}</span>
               </Link>
             </div>
           </div>
