@@ -190,7 +190,7 @@ export default function AccueilPage() {
           <>
             {/* Offres de la page courante */}
             <div className='grille-offres'>
-              {displayedOffers.map((offre) => {
+              {paginatedOffers.map((offre) => {
                 const applied =
                   user?.offres?.includes(String(offre.id)) ?? false;
 
@@ -199,6 +199,7 @@ export default function AccueilPage() {
                 );
               })}
             </div>
+
             {/* Pagination */}
             {totalPages > 1 && (
               <div className='d-flex justify-content-center align-items-center gap-3 mt-3 pt-3 border-top'>
