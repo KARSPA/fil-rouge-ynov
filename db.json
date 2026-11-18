@@ -14,7 +14,7 @@
         "datePublication": "15/09/2026"
       },{
         "id": "2",
-        "titre": "Développeur Mainframe H/F",
+        "titre": "Développeur Fullstack H/F",
         "description": "Blablabla on s'en fou ....",
         "entreprise": "CGI",
         "contrat": "CDI",
@@ -49,6 +49,120 @@
         "salaireAnnuelMax": 65000,
         "expAnneeMini": 8,
         "datePublication": "01/05/2026"
+      },{
+        "id": "5",
+        "titre": "Acrobate H/F",
+        "description": "et un et deux et... oups !",
+        "entreprise": "Adobe",
+        "contrat": "CDD",
+        "domaine": "Informatique",
+        "lieu": "Paris - 75",
+        "dureeContrat": "6 mois",
+        "salaireAnnuelMin": 60000,
+        "salaireAnnuelMax": 65000,
+        "expAnneeMini": 8,
+        "datePublication": "01/05/2026"
+      },{
+        "id": "6",
+        "titre": "Montreur d'ours H/F",
+        "description": "lorem ipsum ....",
+        "entreprise": "Auto-entrepreneur",
+        "contrat": "Freelance",
+        "domaine": "art",
+        "lieu": "Paris - 75",
+        "dureeContrat": "6 mois",
+        "salaireAnnuelMin": 60000,
+        "salaireAnnuelMax": 65000,
+        "expAnneeMini": 8,
+        "datePublication": "01/05/2026"
+      },{
+        "id": "7",
+        "titre": "Expert cybersécurité H/F",
+        "description": "lorem ipsum ....",
+        "entreprise": "La Banque Postale",
+        "contrat": "CDD",
+        "domaine": "Cybersécurité",
+        "lieu": "Paris - 75",
+        "dureeContrat": "6 mois",
+        "salaireAnnuelMin": 60000,
+        "salaireAnnuelMax": 65000,
+        "expAnneeMini": 8,
+        "datePublication": "01/07/2026"
+      },{
+        "id": "8",
+        "titre": "Expert cybersécurité H/F",
+        "description": "lorem ipsum ....",
+        "entreprise": "La Banque Postale",
+        "contrat": "CDD",
+        "domaine": "Cybersécurité",
+        "lieu": "Paris - 75",
+        "dureeContrat": "6 mois",
+        "salaireAnnuelMin": 60000,
+        "salaireAnnuelMax": 65000,
+        "expAnneeMini": 8,
+        "datePublication": "01/05/2026"
+      },{
+        "id": "9",
+        "titre": "Expert cybersécurité H/F",
+        "description": "lorem ipsum ....",
+        "entreprise": "La Banque Postale",
+        "contrat": "CDD",
+        "domaine": "Cybersécurité",
+        "lieu": "Paris - 75",
+        "dureeContrat": "6 mois",
+        "salaireAnnuelMin": 60000,
+        "salaireAnnuelMax": 65000,
+        "expAnneeMini": 8,
+        "datePublication": "01/05/2026"
+      },{
+        "id": "10",
+        "titre": "Expert cybersécurité H/F",
+        "description": "lorem ipsum ....",
+        "entreprise": "La Banque Postale",
+        "contrat": "CDD",
+        "domaine": "Cybersécurité",
+        "lieu": "Paris - 75",
+        "dureeContrat": "6 mois",
+        "salaireAnnuelMin": 60000,
+        "salaireAnnuelMax": 65000,
+        "expAnneeMini": 8,
+        "datePublication": "01/05/2026"
+      },{
+        "id": "11",
+        "titre": "Expert cybersécurité H/F",
+        "description": "lorem ipsum ....",
+        "entreprise": "La Banque Postale",
+        "contrat": "CDD",
+        "domaine": "Cybersécurité",
+        "lieu": "Paris - 75",
+        "dureeContrat": "6 mois",
+        "salaireAnnuelMin": 60000,
+        "salaireAnnuelMax": 65000,
+        "expAnneeMini": 8,
+        "datePublication": "01/05/2026"
       }
-    ]
+    ],
+    "users": [
+    {
+      "id": 1,
+      "nom": "Diane",
+      "email": "diane@auboulot.fr",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "nom": "Yvan",
+      "email": "Yvan@auboulot.fr",
+      "password": "user123",
+      "role": "user"
+    },
+    {
+      "id": 3,
+      "nom": "Zahia",
+      "email": "Zahia@auboulot.fr",
+      "password": null,
+      "role": "visiteur"
+    }
+  ]
 }
