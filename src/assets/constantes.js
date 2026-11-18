@@ -6,6 +6,13 @@ export const DOMAINES = [
     "Développement", "Cybersécurité", "Réseau", "Déploiement", "Autre"
 ]
 
+
+export function DOMAINES_DEFAULT_FILTERS() {
+    return DOMAINES.map((domain) => {
+        return {domaine: domain, checked : false}
+    })
+}
+
 export const DEPARTEMENTS = [
     {CP:"01",name:"Ain"},
     {CP:"02",name:"Aisne"},
