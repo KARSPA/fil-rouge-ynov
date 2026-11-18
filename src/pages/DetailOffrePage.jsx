@@ -260,13 +260,14 @@ function DetailOffrePage() {
                                 </div>
 
                                 <div className="d-flex justify-content-center gap-3 mb-4">
-    <button type="submit" className="btn-actions-bandeau btn-actions-modif py-2 px-4">
-        Valider la modification
-    </button>
-    <button type="button" onClick={handleAnnuler} className="btn-actions-bandeau py-2 px-4">
-        Annuler
-    </button>
-</div>
+                                <button type="submit" className="btn-actions-bandeau btn-actions-modif py-2 px-4">
+                                    Valider la modification
+                                </button>
+
+                                <button type="button" onClick={handleAnnuler} className="btn-actions-bandeau py-2 px-4">
+                                    Annuler
+                                </button>
+                                </div>
                             </form>
                         </div>
                     </div>
