@@ -7,8 +7,7 @@ export default function AuthentificationPage() {
     const navigate = useNavigate();
     const { user } = useAuth();
     const { login } = useAuth();
-
-
+    
     // Un seul composant, deux modes : "connexion" ou "inscription"
     const [mode, setMode] = useState("connexion");
 
