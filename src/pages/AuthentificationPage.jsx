@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import  useAuth  from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 import { getUsers, addUser } from "../services/authService";
 
 export default function AuthentificationPage() {
     const navigate = useNavigate();
     const { login } = useAuth();
 
-    // Un seul composant, deux modes : "connexion" ou "inscription" (spec du PDF)
+    // Un seul composant, deux modes : "connexion" ou "inscription"
     const [mode, setMode] = useState("connexion");
 
     // Les champs du formulaire
@@ -15,47 +15,47 @@ export default function AuthentificationPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    // Le message affiché (erreur OU succès), null si rien à dire
+    // Le message affiché (erreur OU succès), vide si rien à dire
     const [message, setMessage] = useState("");
 
-    // ===== CONNEXION : vérifier contre le db.json =====
+    // ===== CONNEXION =====
     async function handleConnexion(e) {
-    e.preventDefault();
-    setMessage("");
-    try {
-        const users = await getUsers();
-        const userTrouve = users.find(u =>
-            u.email === email && u.password === password
-        );
-        if (userTrouve) {
-            login(userTrouve);
-            navigate("/");
-        } else {
-            setMessage("Identifiants incorrects. Vérifie ton email et ton mot de passe.");
+        e.preventDefault();
+        setMessage("");
+        try {
+            const users = await getUsers();
+            const userTrouve = users.find(u =>
+                u.email === email && u.password === password
+            );
+            if (userTrouve) {
+                login(userTrouve);
+                navigate("/");
+            } else {
+                setMessage("Identifiants incorrects. Vérifie ton email et ton mot de passe.");
+            }
+        } catch (error) {
+            setMessage("Erreur serveur : impossible de vérifier tes identifiants.");
         }
-    } catch (error) {
-        setMessage("Erreur serveur : impossible de vérifier tes identifiants.");
     }
-}
 
-    // ===== INSCRIPTION : créer le compte puis basculer sur la connexion =====
-    function handleInscription(e) {
+    // ===== INSCRIPTION =====
+    async function handleInscription(e) {
         e.preventDefault();
         setMessage("");
         if (!nom.trim() || !email.trim() || !password.trim()) {
-            setMessage("Tous les champs sont obligatoires.");   // spec : champs obligatoires
+            setMessage("Tous les champs sont obligatoires.");
             return;
         }
         addUser({ nom: nom.trim(), email: email.trim(), password, role: "user" })
             .then(() => {
-                setMode("connexion");           // spec : retour vers la connexion
+                setMode("connexion");
                 setMessage("Compte créé ! Connecte-toi avec tes identifiants.");
-                setPassword("");                // on nettoie le champ sensible
+                setPassword("");
             })
             .catch(() => setMessage("Erreur serveur : impossible de créer le compte."));
     }
 
-    // La bascule entre les deux modes (spec : "Pas encore inscrit ? C'est par ici")
+    // La bascule entre les deux modes
     function basculerMode() {
         setMessage("");
         setMode(mode === "connexion" ? "inscription" : "connexion");
@@ -67,12 +67,14 @@ export default function AuthentificationPage() {
                 <div className="col-md-7 col-lg-6">
 
                     <div className="fiche-offre p-4">
-                        {/* La pastille noire du titre, comme le bandeau de l'accueil */}
+                        {/* La pastille noire du titre */}
                         <h1 className="auth-titre fs-4 mb-4">
-                            {mode === "connexion" ? "Rejoins les rangs !" : "Enrôle-toi !"}
+                            {mode === "connexion"
+                                ? "Connecte-toi travailleur !"
+                                : "Rejoins les rangs des travailleurs !"}
                         </h1>
 
-                        {/* Le message d'erreur ou de succès, dans la DA */}
+                        {/* Le message d'erreur ou de succès */}
                         {message && <p className="auth-message fst-italic">{message}</p>}
 
                         {/* ===== MODE CONNEXION ===== */}
@@ -87,7 +89,7 @@ export default function AuthentificationPage() {
                                     className="form-control auth-input mb-3"
                                     value={email}
                                     onChange={e => setEmail(e.target.value)}
-                                    placeholder="diane@auboulot.fr"
+                                    placeholder="exemple@auboulot.fr"
                                     required
                                 />
                                 <label className="form-label fw-bold" htmlFor="password">
@@ -99,7 +101,6 @@ export default function AuthentificationPage() {
                                     className="form-control auth-input mb-4"
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
-                                    placeholder="Ton mot de passe"
                                     required
                                 />
                                 <div className="d-grid">
@@ -122,7 +123,6 @@ export default function AuthentificationPage() {
                                     className="form-control auth-input mb-3"
                                     value={nom}
                                     onChange={e => setNom(e.target.value)}
-                                    placeholder="Ton nom"
                                     required
                                 />
                                 <label className="form-label fw-bold" htmlFor="email-insc">
@@ -134,7 +134,7 @@ export default function AuthentificationPage() {
                                     className="form-control auth-input mb-3"
                                     value={email}
                                     onChange={e => setEmail(e.target.value)}
-                                    placeholder="ton.email@auboulot.fr"
+                                    placeholder="exemple@auboulot.fr"
                                     required
                                 />
                                 <label className="form-label fw-bold" htmlFor="password-insc">
@@ -146,7 +146,7 @@ export default function AuthentificationPage() {
                                     className="form-control auth-input mb-4"
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
-                                    placeholder="Choisis-en un solide"
+                                    placeholder="choisis-en un aussi solide que ta volonté de travailler"
                                     required
                                 />
                                 <div className="d-grid">
@@ -160,16 +160,18 @@ export default function AuthentificationPage() {
                         {/* La bascule, en bas de la carte */}
                         <p className="text-center mt-4 mb-0">
                             {mode === "connexion" ? (
-                                <>Pas encore inscrit ?{" "}
+                                <>T'es pas encore inscrit ? Rectifie ça tout de suite{" "}
                                     <button type="button" className="auth-lien" onClick={basculerMode}>
-                                        C'est par ici !
+                                        ici
                                     </button>
+                                    !
                                 </>
                             ) : (
-                                <>Déjà des nôtres ?{" "}
+                                <>Tu es déjà un brave travailleur ?{" "}
                                     <button type="button" className="auth-lien" onClick={basculerMode}>
-                                        Connecte-toi !
+                                        viens par ici
                                     </button>
+                                     !
                                 </>
                             )}
                         </p>
