@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getOfferById, modifyOffer } from "../services/offresService";
+import {
+  deleteOffre,
+  getOfferById,
+  modifyOffer,
+} from "../services/offresService";
 import { DOMAINES, TYPE_CONTRAT } from "../assets/constantes.js";
-
+import DetailCarte from "../components/DetailCarte.jsx";
+import ModaleSuppression from "../components/ModaleSuppression.jsx";
+import { useNavigate } from "react-router-dom";
 function DetailOffrePage() {
+  const navigate = useNavigate();
   const { id } = useParams();
 
+  // Offre
   const [offer, setOffer] = useState(null);
+
+  // Variable Modification de l'annonce
   const [modify, setModify] = useState(false);
   const [titre, setTitre] = useState("");
   const [lieu, setLieu] = useState("");
@@ -17,6 +27,8 @@ function DetailOffrePage() {
   const [contrat, setContrat] = useState(null);
   const [domaine, setDomaine] = useState(null);
   const [expAnneeMini, setMinExp] = useState(null);
+
+  // Variables Modale
   useEffect(() => {
     getOfferById(id)
       .then((data) => {
@@ -24,6 +36,8 @@ function DetailOffrePage() {
       })
       .catch((error) => console.error(error));
   }, [id]);
+
+  // Initialisation lors de la modification
   function handleModifyButton() {
     setTitre(offer.titre);
     setLieu(offer.lieu);
@@ -36,6 +50,8 @@ function DetailOffrePage() {
     setDomaine(offer.domaine);
     setModify(true);
   }
+
+  // Envoi du formulaire
   async function handleSubmitModif(e) {
     e.preventDefault();
     try {
@@ -60,6 +76,19 @@ function DetailOffrePage() {
     }
   }
 
+  // Modale
+
+  const [modalShow, setModalShow] = useState(false);
+
+  function handleDelete() {
+    try {
+      deleteOffre(id);
+      navigate("/");
+    } catch (error) {
+      console.error("Error :", error);
+      alert("L'annonce n'a pas pu être supprimée.");
+    }
+  }
   if (!offer) {
     return <p className='container mt-5'> Chargement...</p>;
   }
@@ -218,30 +247,9 @@ function DetailOffrePage() {
     );
   }
   return (
-    <div className='container mt-5'>
-      <div>
-        <h1 className='h1'>{offer.titre}</h1>
-        <span className='h3'>{offer.entreprise} - </span>
-        <span className='h3 text-secondary'>{offer.lieu}</span>
-        <h5 className='text-secondary'>{offer.datePublication}</h5>
-        <p className='mt-4 col-6'>{offer.description}</p>
-        <span className='mb-0 fw-semibold'>Contrat : </span>
-        <span>{offer.contrat}</span>
-        <div className='my-2'>
-          <p className='mb-0 fw-semibold'>Salaire annuel :</p>
-          <span className='badge bg-primary-subtle text-primary'>
-            {offer.salaireAnnuelMin}€
-          </span>
-          <span> - </span>
-          <span className='badge bg-primary-subtle text-primary'>
-            {offer.salaireAnnuelMax}€
-          </span>
-        </div>
-        <span className='mb-0 fw-semibold'>
-          Année{offer.expAnneeMini > 1 ? "s" : ""} d'expérience minimum :
-        </span>
-        <span>{" " + offer.expAnneeMini} ans.</span>
-
+    <>
+      <div className='container mt-5'>
+        <DetailCarte offer={offer} />
         {/*Admin actions*/}
         <div className='mt-2'>
           <button
@@ -250,12 +258,30 @@ function DetailOffrePage() {
           >
             Modifier l'offre
           </button>
-          <button className='text-danger-emphasis bg-danger-subtle btn'>
+          <button
+            className='text-danger-emphasis bg-danger-subtle btn'
+            onClick={() => setModalShow(true)}
+          >
             Supprimer l'offre
           </button>
         </div>
       </div>
-    </div>
+
+      <div
+        class='modal fade'
+        id='exampleModal'
+        tabindex='-1'
+        role='dialog'
+        aria-labelledby='exampleModalLabel'
+        aria-hidden='true'
+      >
+        <ModaleSuppression
+          show={modalShow}
+          handleDelete={handleDelete}
+          onHide={() => setModalShow(false)}
+        />
+      </div>
+    </>
   );
 }
 
