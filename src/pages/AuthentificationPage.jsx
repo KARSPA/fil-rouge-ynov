@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { getUsers, addUser } from "../services/authService";
 
 export default function AuthentificationPage() {
     const navigate = useNavigate();
+    const { user } = useAuth();
     const { login } = useAuth();
     
     // Un seul composant, deux modes : "connexion" ou "inscription"
@@ -17,6 +18,10 @@ export default function AuthentificationPage() {
 
     // Le message affiché (erreur OU succès), vide si rien à dire
     const [message, setMessage] = useState("");
+
+    if (user) {
+        return <Navigate to="/" replace />;
+    }
 
     // ===== CONNEXION =====
     async function handleConnexion(e) {
