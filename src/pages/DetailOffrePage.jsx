@@ -113,7 +113,7 @@ function DetailOffrePage() {
             <div className="container mt-5 text-center">
                 <h1 className="rubrique d-inline-block">Erreur</h1>
                 <p className="mt-3">{erreur}</p>
-                <Link to="/" className="btn btn-outline-dark mt-2">← Retour aux offres</Link>
+                <Link to="/" className="btn-retour">← Retour aux offres</Link>
             </div>
         );
     }
@@ -259,14 +259,14 @@ function DetailOffrePage() {
                                     </div>
                                 </div>
 
-                                <div className="d-flex justify-content-center gap-3">
-                                    <button type="submit" className="btn-actions-bandeau btn-actions-modif">
-                                        Valider la modification
-                                    </button>
-                                    <button type="button" onClick={handleAnnuler} className="btn btn-outline-dark">
-                                        Annuler
-                                    </button>
-                                </div>
+                                <div className="d-flex justify-content-center gap-3 mb-4">
+    <button type="submit" className="btn-actions-bandeau btn-actions-modif py-2 px-4">
+        Valider la modification
+    </button>
+    <button type="button" onClick={handleAnnuler} className="btn-actions-bandeau py-2 px-4">
+        Annuler
+    </button>
+</div>
                             </form>
                         </div>
                     </div>
