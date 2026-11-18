@@ -2,10 +2,9 @@ import { Link } from "react-router-dom";
 
 export default function OffreCarte({ offre }) {
     return (
-        <div className="w-100 h-100">                          {/* ← h-100 ajouté */}
-            <div className="border rounded p-4 offer-card h-100 d-flex flex-column">
-                                                      {/* ← h-100 + flex-column ajoutés */}
-                <div className="d-flex gap-3 flex-grow-1">     {/* ← flex-grow-1 ajouté */}
+        <div className="w-100 h-100">                         
+            <div className="border rounded p-4 offer-card h-100 d-flex flex-column">                       
+                <div className="d-flex gap-3 flex-grow-1">   
                     <img
                         src="https://placehold.co/400x250"
                         alt="image offre"
@@ -81,8 +80,5 @@ export default function OffreCarte({ offre }) {
               </Link>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
   );
 }
