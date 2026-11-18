@@ -5,35 +5,63 @@ import OffreCarte from "../components/OffreCarte.jsx";
 import {DOMAINES_DEFAULT_FILTERS} from "../assets/constantes.js";
 import {Accordion} from "react-bootstrap";
 
-// const OFFRES_PAR_PAGE = 6; // 3 rangées de 2 colonnes
+const OFFRES_PAR_PAGE = 6; // 3 rangées de 2 colonnes
 
 export default function AccueilPage() {
   const [offers, setOffers] = useState([]);
   const [displayedOffers, setDisplayedOffers] = useState([]);
-  // const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [search, setSearch] = useState("");
 
   const [searchDomains, setSearchDomains] = useState(DOMAINES_DEFAULT_FILTERS);
   const [allDomains, setAllDomains] = useState(true);
 
-  function onSearch(search) {
-      setSearch(search);
 
-      const filters = [
-          {name: 'titre', value: search},
-          {name: 'entreprise', value: search},
-          {name: 'description', value: search}
-      ];
+    // Nombre total de pages
+    const totalPages = Math.max(
+        1,
+        Math.ceil(displayedOffers.length / OFFRES_PAR_PAGE)
+    );
 
-      getOffresWithStringFilter(filters)
-          .then(data => {
-              setOffers(data)
-              setDisplayedOffers(data)
-          })
-          .catch(error => console.log(error));
+    // Garantit une page valide
+    const safePage = Math.min(currentPage, totalPages);
 
-  }
+    // Index de la première offre de la page
+    const startIndex = (safePage - 1) * OFFRES_PAR_PAGE;
+
+    // Offres à afficher sur la page courante
+    const paginatedOffers = displayedOffers.slice(
+        startIndex,
+        startIndex + OFFRES_PAR_PAGE
+    );
+
+
+    function onSearch(search) {
+        setSearch(search);
+
+        const filters = [
+            { name: "titre", value: search },
+            { name: "entreprise", value: search },
+            { name: "description", value: search }
+        ];
+
+        getOffresWithStringFilter(filters)
+            .then(data => {
+                setOffers(data);
+                setDisplayedOffers(data);
+
+                // Retour à la première page
+                setCurrentPage(1);
+
+                // Réinitialisation des filtres par domaines
+                setSearchDomains(
+                    DOMAINES_DEFAULT_FILTERS
+                );
+                setAllDomains(true);
+            })
+            .catch(error => console.error(error));
+    }
 
   function handleAllDomainFilterChange(){
       // Lors d'un clic sur ce filtre, on désactive tous les autres ET on coche celui ci
@@ -41,43 +69,46 @@ export default function AccueilPage() {
 
       setAllDomains(true);
       setDisplayedOffers([...offers]);
+
+      // Retour à la première page
+      setCurrentPage(1);
   }
 
-  function handleDomainFilterChange(e, domainIndex){
+    function handleDomainFilterChange(e, domainIndex) {
 
-      // On modifie le tableau de recherche par domaine pour avoir l'input de l'user ...
-      let domainsCopy = [...searchDomains];
-      domainsCopy[domainIndex].checked = !domainsCopy[domainIndex].checked
-      setSearchDomains(domainsCopy);
+        const updatedDomains = searchDomains.map((domain, index) => ({
+            ...domain,
+            checked: index === domainIndex
+                ? !domain.checked
+                : domain.checked
+        }));
 
-      // Vérifier si aucun filtre n'est coché, on affiche tout ET on coche le 'Aucun filtre' :
-      if (searchDomains.every(domain => !domain.checked)) {
-          setDisplayedOffers([...offers]);
-          setAllDomains(true);
-      }
-      else{ // Si au moins un filtre est coché, on fait la filtration ET on décoche 'Aunun filtre'
-          const domainMap = createDomainMap()
-          setDisplayedOffers(offers.filter(offre => predicateFilterDomain(offre, domainMap)))
+        setSearchDomains(updatedDomains);
 
-          setAllDomains(false);
-      }
-  }
+        const selectedDomains = updatedDomains.filter(
+            domain => domain.checked
+        );
 
+        if (selectedDomains.length === 0) {
+            setDisplayedOffers([...offers]);
+            setAllDomains(true);
+        } else {
+            const domainMap = {};
 
-  function createDomainMap(){
-      let map = {}
-      searchDomains.forEach(domain => {
-          map[domain.domaine] = domain.checked;
-      })
-      return map;
-  }
+            updatedDomains.forEach(domain => {
+                domainMap[domain.domaine] = domain.checked;
+            });
 
-  function predicateFilterDomain(offre, domainMap){
-      // On garde les offres dont le nom de domaine est checké
+            setDisplayedOffers(
+                offers.filter(offre => domainMap[offre.domaine])
+            );
 
-      return domainMap[offre.domaine]
+            setAllDomains(false);
+        }
 
-  }
+        // Retour à la première page après filtrage
+        setCurrentPage(1);
+    }
 
 
   useEffect(() => {
@@ -103,12 +134,10 @@ export default function AccueilPage() {
         </p>
       </header>
 
-      {/* Barre de recherche : ton composant existant,
-                le branchement réel sera fait ultérieurement*/}
       <BarreRecherche search={search} onSearch={onSearch} />
 
 
-            <Accordion defaultActiveKey="0" flush className="accordion-shadow">
+        <Accordion defaultActiveKey="0" flush className="accordion-shadow">
                 <Accordion.Item eventKey="0">
                     <Accordion.Header >Filtrer par domaines</Accordion.Header>
                     <Accordion.Body>
@@ -120,13 +149,12 @@ export default function AccueilPage() {
                                 <label className={"none-domain-filter-btn " + (allDomains ? "active" : "")} htmlFor={`btn-check-all`}>Aucun Filtre</label>
                             </div>
                             <div className='d-flex flex-wrap gap-3 justify-content-center'>
-
                                 {searchDomains.map(((domaine, index) => (
-                                        <div>
-                                            <input type="checkbox" className="btn-check" id={`btn-check-${index}`} autoComplete="off" checked={domaine.checked}
-                                                   onChange={(e)=>handleDomainFilterChange(e, index)}/>
-                                            <label className={"checkbox-filter-btn " + (domaine.checked ? "active" : "")} htmlFor={`btn-check-${index}`}>{domaine.domaine}</label>
-                                        </div>
+                                    <div key={domaine.name}>
+                                        <input type="checkbox" className="btn-check" id={`btn-check-${index}`} autoComplete="off" checked={domaine.checked}
+                                               onChange={(e)=>handleDomainFilterChange(e, index)}/>
+                                        <label className={"checkbox-filter-btn " + (domaine.checked ? "active" : "")} htmlFor={`btn-check-${index}`}>{domaine.domaine}</label>
+                                    </div>
                                     )
                                 ))}
                             </div>
@@ -138,43 +166,62 @@ export default function AccueilPage() {
         <h2 className='rubrique mt-4'>Les offres</h2>
 
 
-        <div className='cadre-offres mt-3 mb-5'>
-            {false ? (
-                <p className='text-center fst-italic mb-0'>
-                    Aucune offre ! Soyez fiers travailleurs, c'est grâce à vous que le
-                    plein emploi est atteint !
+        <div className="cadre-offres mt-3 mb-5">
+            {displayedOffers.length === 0 ? (
+                <p className="text-center fst-italic mb-0">
+                    Aucune offre ! Soyez fiers travailleurs,
+                    c'est grâce à vous que le plein emploi
+                    est atteint !
                 </p>
-            ) : (
-                <>
-                    <div className='grille-offres'>
-                        {displayedOffers
-                            .map((offre) => (
-                                <OffreCarte key={offre.id} offre={offre} />
-              ))}
-            </div>
 
-            {/*<div className='d-flex justify-content-center align-items-center gap-3 mt-3 pt-2 border-top'>*/}
-            {/*  <button*/}
-            {/*    className='btn btn-outline-dark'*/}
-            {/*    disabled={safePage === 1}*/}
-            {/*    onClick={() => setCurrentPage(safePage - 1)}*/}
-            {/*  >*/}
-            {/*    ← Précédent*/}
-            {/*  </button>*/}
-            {/*  <span>*/}
-            {/*    Page {safePage} / {totalPages}*/}
-            {/*  </span>*/}
-            {/*  <button*/}
-            {/*    className='btn btn-outline-dark'*/}
-            {/*    disabled={safePage === totalPages}*/}
-            {/*    onClick={() => setCurrentPage(safePage + 1)}*/}
-            {/*  >*/}
-            {/*    Suivant →*/}
-            {/*  </button>*/}
-            {/*</div>*/}
-          </>
-        )}
-      </div>
+            ) : (
+
+                <>
+                    {/* Offres de la page courante */}
+                    <div className="grille-offres">
+
+                        {paginatedOffers.map(offre => (
+                            <OffreCarte
+                                key={offre.id}
+                                offre={offre}
+                            />
+                        ))}
+
+                    </div>
+
+                    {/* Pagination */}
+                    {totalPages > 1 && (
+
+                        <div className="d-flex justify-content-center align-items-center gap-3 mt-3 pt-3 border-top">
+
+                            <button
+                                className="btn btn-outline-dark"
+                                disabled={safePage === 1}
+                                onClick={() => setCurrentPage(safePage - 1)}
+                            >
+                                ← Précédent
+                            </button>
+
+                            <span>
+                        Page {safePage} / {totalPages}
+                    </span>
+
+                            <button
+                                className="btn btn-outline-dark"
+                                disabled={safePage === totalPages}
+                                onClick={() => setCurrentPage(safePage + 1)}
+                            >
+                                Suivant →
+                            </button>
+
+                        </div>
+
+                    )}
+
+                </>
+
+            )}
+
+        </div>
     </div>
-  );
-}
+  )}
