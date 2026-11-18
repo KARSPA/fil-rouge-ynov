@@ -6,7 +6,7 @@ import { getUsers, addUser } from "../services/authService";
 export default function AuthentificationPage() {
     const navigate = useNavigate();
     const { login } = useAuth();
-
+    
     // Un seul composant, deux modes : "connexion" ou "inscription"
     const [mode, setMode] = useState("connexion");
 
