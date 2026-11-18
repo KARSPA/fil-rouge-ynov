@@ -164,19 +164,6 @@
       "salaireAnnuelMax": 65000,
       "expAnneeMini": 8,
       "datePublication": "01/05/2026"
-    },
-    {
-      "titre": "Manager",
-      "description": "Manager",
-      "entreprise": "LBP",
-      "contrat": "Freelance",
-      "domaine": "Cybersécurité",
-      "lieu": "Bordeaux - 33",
-      "salaireAnnuelMin": 1,
-      "salaireAnnuelMax": 13,
-      "expAnneeMini": 56,
-      "datePublication": "18/11/2026",
-      "id": "ZUjBJQlU3PE"
     }
   ],
   "users": [
@@ -186,10 +173,7 @@
       "email": "diane@auboulot.fr",
       "password": "admin123",
       "role": "admin",
-      "offres": [
-        "1",
-        "1"
-      ]
+      "offres": []
     },
     {
       "id": "2",
