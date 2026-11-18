@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getOffres } from "../services/offresService.js";
+import {getOffres, getOffresWithStringFilter} from "../services/offresService.js";
 import BarreRecherche from "../components/BarreRecherche.jsx";
 import OffreCarte from "../components/OffreCarte.jsx";
 
@@ -9,24 +9,46 @@ export default function AccueilPage() {
   const [offers, setOffers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [search, setSearch] = useState("");
+
+
+  function onSearch(search) {
+      setSearch(search);
+
+      const filters = [
+          {name: 'titre', value: search},
+          {name: 'entreprise', value: search},
+          {name: 'description', value: search}
+      ];
+
+      getOffresWithStringFilter(filters)
+          .then(data => setOffers(data))
+          .catch(error => console.log(error));
+
+  }
+
+    // --- Pagination ---
+    const totalPages = Math.max(1, Math.ceil(offers.length / OFFRES_PAR_PAGE));
+
+    // Sécurité : si on est sur une page qui n'existe plus, on revient à la 1re
+    const safePage = Math.min(currentPage, totalPages);
+    const pagedOffers = offers.slice(
+      (safePage - 1) * OFFRES_PAR_PAGE,
+      safePage * OFFRES_PAR_PAGE,
+    );
+
+    // --- Message si aucune offre ---
+    const aucunResultat = offers.length === 0;
+
+
+
   useEffect(() => {
     getOffres()
       .then((data) => setOffers(data))
       .catch((error) => console.error(error));
   }, []);
 
-  // --- Pagination ---
-  const totalPages = Math.max(1, Math.ceil(offers.length / OFFRES_PAR_PAGE));
 
-  // Sécurité : si on est sur une page qui n'existe plus, on revient à la 1re
-  const safePage = Math.min(currentPage, totalPages);
-  const pagedOffers = offers.slice(
-    (safePage - 1) * OFFRES_PAR_PAGE,
-    safePage * OFFRES_PAR_PAGE,
-  );
-
-  // --- Message si aucune offre ---
-  const aucunResultat = offers.length === 0;
 
   return (
     <div className='container mt-4'>
@@ -42,11 +64,11 @@ export default function AccueilPage() {
 
       {/* Barre de recherche : ton composant existant,
                 le branchement réel sera fait ultérieurement*/}
-      <BarreRecherche />
+      <BarreRecherche search={search} onSearch={onSearch} />
 
       <h2 className='rubrique mt-4'>Toutes les offres</h2>
 
-      <div className='cadre-offres mt-3'>
+      <div className='cadre-offres mt-3 mb-5'>
         {aucunResultat ? (
           <p className='text-center fst-italic mb-0'>
             Aucune offre ! Soyez fiers travailleurs, c'est grâce à vous que le
@@ -55,7 +77,8 @@ export default function AccueilPage() {
         ) : (
           <>
             <div className='grille-offres'>
-              {pagedOffers.map((offre) => (
+              {pagedOffers
+                  .map((offre) => (
                 <OffreCarte key={offre.id} offre={offre} />
               ))}
             </div>
