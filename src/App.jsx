@@ -17,6 +17,7 @@ function App () {
             <Route path='/connexion' element={<AuthentificationPage/>}/>
             <Route path='offres/:id' element={<DetailOffrePage/>}/>
             <Route path='/ajout' element={<FormulaireOffrePage/>}/>
+            <Route path="/connexion" element={<AuthentificationPage />} />
         </Routes>
         </>
     )

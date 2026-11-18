@@ -3,20 +3,20 @@
     {
       "id": "1",
       "titre": "Développeur Mainframe H/F",
-      "description": "Blablabla on s'en fou ....",
-      "entreprise": "La Banque Postale",
+      "description": "Nous recherchons un Développeur Mainframe pour intervenir sur la conception, le développement, la maintenance et l'évolution d'applications métiers en environnement IBM z/OS. Vous serez chargé du développement de programmes COBOL, de la gestion des traitements batch via JCL, de l'exploitation des bases de données DB2 et des transactions CICS. Vous participerez également à l'analyse et à la résolution des incidents, aux phases de tests et de mise en production, ainsi qu'à l'amélioration continue des applications. Une bonne maîtrise de COBOL, JCL, DB2 et de l'environnement Mainframe est attendue, ainsi qu'un bon esprit d'analyse, de la rigueur et une capacité à travailler en équipe.",
+      "entreprise": "cgi",
       "contrat": "CDI",
       "domaine": "Développement",
       "lieu": "Bordeaux - 33",
-      "salaireAnnuelMin": 35000,
-      "salaireAnnuelMax": 45000,
-      "expAnneeMini": 2,
+      "salaireAnnuelMin": 40000,
+      "salaireAnnuelMax": 54000,
+      "expAnneeMini": 4,
       "datePublication": "15/09/2026"
     },
     {
       "id": "2",
       "titre": "Développeur Fullstack H/F",
-      "description": "Blablabla on s'en fou ....",
+      "description": "Nous recherchons un Développeur Mainframe pour intervenir sur la conception, le développement, la maintenance et l'évolution d'applications métiers en environnement IBM z/OS. Vous serez chargé du développement de programmes COBOL, de la gestion des traitements batch via JCL, de l'exploitation des bases de données DB2 et des transactions CICS. Vous participerez également à l'analyse et à la résolution des incidents, aux phases de tests et de mise en production, ainsi qu'à l'amélioration continue des applications. Une bonne maîtrise de COBOL, JCL, DB2 et de l'environnement Mainframe est attendue, ainsi qu'un bon esprit d'analyse, de la rigueur et une capacité à travailler en équipe.",
       "entreprise": "CGI",
       "contrat": "CDI",
       "domaine": "Développement",
@@ -28,9 +28,9 @@
     },
     {
       "id": "3",
-      "titre": "Technicien zOS H/F",
-      "description": "Super cool raconte pas ta vie",
-      "entreprise": "IBM France",
+      "titre": "opérateur industriel",
+      "description": "Nous recherchons un Technicien z/OS pour assurer l'administration, l'exploitation et le maintien en condition opérationnelle des environnements Mainframe IBM. Vous serez chargé de la surveillance des systèmes, du suivi des traitements batch, de la gestion des incidents et des demandes d'exploitation, ainsi que de l'exécution des opérations techniques courantes. Vous interviendrez sur les environnements z/OS, JCL, TSO/ISPF et les outils de supervision, en collaboration avec les équipes systèmes, études et production. Vous participerez également aux opérations de maintenance, aux mises en production et à l'amélioration continue de la qualité de service. Rigueur, réactivité, autonomie et capacité à travailler en équipe sont essentielles pour ce poste.",
+      "entreprise": "boeing",
       "contrat": "CDI",
       "domaine": "Réseau",
       "lieu": "Montpellier - 34",
@@ -42,7 +42,7 @@
     {
       "id": "4",
       "titre": "Expert cybersécurité H/F",
-      "description": "lorem ipsum ....",
+      "description": "Nous recherchons un Expert en cybersécurité pour accompagner la sécurisation du système d'information et garantir la protection des infrastructures, des applications et des données de l'entreprise. Vous serez chargé d'identifier les vulnérabilités, d'évaluer les risques, de définir et mettre en œuvre les politiques de sécurité, ainsi que de piloter les audits et les plans de remédiation. Vous interviendrez également sur la gestion des incidents de sécurité, l'analyse des menaces, le renforcement des dispositifs de protection et la mise en conformité avec les normes et réglementations en vigueur. Vous collaborerez étroitement avec les équipes infrastructure, réseau, systèmes et développement afin d'intégrer les bonnes pratiques de sécurité dans les projets. Une solide expertise en cybersécurité, une bonne connaissance des environnements techniques et des référentiels tels que ISO 27001, NIST ou ANSSI sont attendues, ainsi qu'un esprit d'analyse, de la rigueur et une forte capacité à anticiper les risques.",
       "entreprise": "La Banque Postale",
       "contrat": "CDD",
       "domaine": "Cybersécurité",
@@ -56,7 +56,7 @@
     {
       "id": "5",
       "titre": "Acrobate H/F",
-      "description": "et un et deux et... oups !",
+      "description": "Nous recherchons un Acrobate pour réaliser des performances artistiques et physiques dans le cadre de spectacles, d'événements ou de représentations scéniques. Vous serez chargé de concevoir et d'exécuter des figures acrobatiques, des enchaînements techniques et des numéros nécessitant souplesse, équilibre, force et coordination. Vous participerez aux répétitions, à la préparation des spectacles et au respect des consignes de sécurité afin de garantir des prestations de qualité. Une excellente condition physique, une bonne maîtrise des techniques acrobatiques, de la discipline et un esprit d'équipe sont indispensables pour ce poste.",
       "entreprise": "Adobe",
       "contrat": "CDD",
       "domaine": "Informatique",
@@ -70,7 +70,7 @@
     {
       "id": "6",
       "titre": "Montreur d'ours H/F",
-      "description": "lorem ipsum ....",
+      "description": "Nous recherchons un Montreur d'ours pour assurer la présentation et l'encadrement d'ours dans le cadre de spectacles et de représentations traditionnelles. Vous serez chargé de préparer les animaux, de superviser leur comportement et de réaliser des démonstrations dans le respect des règles de sécurité et du bien-être animal. Vous veillerez à leur alimentation, à leur suivi quotidien et à leurs conditions de vie, tout en assurant l'organisation des représentations. Une bonne connaissance du comportement animal, une grande vigilance et une expérience dans la manipulation et la gestion d'animaux sauvages sont attendues.",
       "entreprise": "Auto-entrepreneur",
       "contrat": "Freelance",
       "domaine": "art",
@@ -98,7 +98,7 @@
     {
       "id": "8",
       "titre": "Expert cybersécurité H/F",
-      "description": "lorem ipsum ....",
+      "description": "Nous recherchons un Expert en cybersécurité pour accompagner la sécurisation du système d'information et garantir la protection des infrastructures, des applications et des données de l'entreprise. Vous serez chargé d'identifier les vulnérabilités, d'évaluer les risques, de définir et mettre en œuvre les politiques de sécurité, ainsi que de piloter les audits et les plans de remédiation. Vous interviendrez également sur la gestion des incidents de sécurité, l'analyse des menaces, le renforcement des dispositifs de protection et la mise en conformité avec les normes et réglementations en vigueur. Vous collaborerez étroitement avec les équipes infrastructure, réseau, systèmes et développement afin d'intégrer les bonnes pratiques de sécurité dans les projets. Une solide expertise en cybersécurité, une bonne connaissance des environnements techniques et des référentiels tels que ISO 27001, NIST ou ANSSI sont attendues, ainsi qu'un esprit d'analyse, de la rigueur et une forte capacité à anticiper les risques.",
       "entreprise": "La Banque Postale",
       "contrat": "CDD",
       "domaine": "Cybersécurité",
@@ -112,7 +112,7 @@
     {
       "id": "9",
       "titre": "Expert cybersécurité H/F",
-      "description": "lorem ipsum ....",
+      "description": "Nous recherchons un Expert en cybersécurité pour accompagner la sécurisation du système d'information et garantir la protection des infrastructures, des applications et des données de l'entreprise. Vous serez chargé d'identifier les vulnérabilités, d'évaluer les risques, de définir et mettre en œuvre les politiques de sécurité, ainsi que de piloter les audits et les plans de remédiation. Vous interviendrez également sur la gestion des incidents de sécurité, l'analyse des menaces, le renforcement des dispositifs de protection et la mise en conformité avec les normes et réglementations en vigueur. Vous collaborerez étroitement avec les équipes infrastructure, réseau, systèmes et développement afin d'intégrer les bonnes pratiques de sécurité dans les projets. Une solide expertise en cybersécurité, une bonne connaissance des environnements techniques et des référentiels tels que ISO 27001, NIST ou ANSSI sont attendues, ainsi qu'un esprit d'analyse, de la rigueur et une forte capacité à anticiper les risques.",
       "entreprise": "La Banque Postale",
       "contrat": "CDD",
       "domaine": "Cybersécurité",
@@ -126,7 +126,7 @@
     {
       "id": "10",
       "titre": "Expert cybersécurité H/F",
-      "description": "lorem ipsum ....",
+      "description": "Nous recherchons un Expert en cybersécurité pour accompagner la sécurisation du système d'information et garantir la protection des infrastructures, des applications et des données de l'entreprise. Vous serez chargé d'identifier les vulnérabilités, d'évaluer les risques, de définir et mettre en œuvre les politiques de sécurité, ainsi que de piloter les audits et les plans de remédiation. Vous interviendrez également sur la gestion des incidents de sécurité, l'analyse des menaces, le renforcement des dispositifs de protection et la mise en conformité avec les normes et réglementations en vigueur. Vous collaborerez étroitement avec les équipes infrastructure, réseau, systèmes et développement afin d'intégrer les bonnes pratiques de sécurité dans les projets. Une solide expertise en cybersécurité, une bonne connaissance des environnements techniques et des référentiels tels que ISO 27001, NIST ou ANSSI sont attendues, ainsi qu'un esprit d'analyse, de la rigueur et une forte capacité à anticiper les risques.",
       "entreprise": "La Banque Postale",
       "contrat": "CDD",
       "domaine": "Cybersécurité",
@@ -194,11 +194,11 @@
       "role": "user"
     },
     {
-      "id": "3",
-      "nom": "Zahia",
-      "email": "Zahia@auboulot.fr",
-      "password": null,
-      "role": "visiteur"
+      "nom": "zahia",
+      "email": "zahia@auboulot.fr",
+      "password": "1234",
+      "role": "user",
+      "id": "KnB0QOZFytQ"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -1,11 +1,11 @@
 const API_URL = "http://localhost:3000/offres";
 
 export async function getOffres() {
-    const response = await fetch(API_URL);
-    if (!response.ok) {
-        throw new Error("Erreur de récupération des offres");
-    }
-    return await response.json();
+  const response = await fetch(API_URL);
+  if (!response.ok) {
+    throw new Error("Erreur de récupération des offres");
+  }
+  return await response.json();
 }
 
 
@@ -46,7 +46,18 @@ export async function getOfferById(id) {
     throw new Error("Offre Introuvable");
   }
   return await response.json();
+}
 
+export async function modifyOffer(id, newOffer) {
+  console.log(newOffer + " " + id);
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "PATCH",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(newOffer),
+  });
+  if (!response.ok) {
+    throw new Error("Erreur lors de la modification de l'annonce");
+  }
 }
 
 export async function addOffer(offre) {
@@ -61,4 +72,13 @@ export async function addOffer(offre) {
     }
 
     return await response.json()
+}
+
+export async function deleteOffre(id) {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+  });
+  if (!response.ok) {
+    throw new Error("Erreur lors de la suppression");
+  }
 }
