@@ -1,30 +1,31 @@
 # PROJET "AU BOULOT !", une plateforme de recherche d'emploi
 
-Plateforme de consultation d'offres d'emploi, classées par domaine (développement, cybersécurité, réseau, etc.). 
-Projet fil rouge RNCP — React, React Router, JSON Server.
+Plateforme de consultation d'offres d'emploi, classées par domaine
+(développement, cybersécurité, réseau, etc.).
+Projet fil rouge — React, React Router, JSON Server.
 
 ## Rôles
 
 | Rôle | Droits |
 |---|---|
-| Visiteur | Consulter la liste des offres |
-| Utilisateur connecté | Consulter le détail des offres, postuler |
-| Administrateur | Tout le CRUD sur les offres (pas de candidature) |
+| Visiteur | Consulter la liste et le détail des offres, chercher, filtrer |
+| Utilisateur connecté | Consulter et **postuler** aux offres ("Embauche-moi !") |
+| Administrateur connecté | CRUD complet sur les offres (créer, modifier, supprimer) |
 
 ## Comptes de démonstration (`db.json`)
 
 | Email | Mot de passe | Rôle |
 |---|---|---|
 | diane@auboulot.fr | admin123 | admin |
-| ivan@auboulot.fr | user123 | user |
-| zahia@auboulot.fr | v123 | visitor |
+| Yvan@auboulot.fr | user123 | user |
+| zahia@auboulot.fr | 1234 | user (a déjà postulé à plusieurs offres : pratique pour tester le badge "✓ Déjà postulé") |
 
 ## Prérequis
 
 - Node.js (version 18 ou supérieure)
 - npm
 
-## Installation
+## Installation et lancement
 
 ```bash
 # 1. Cloner le dépôt
@@ -34,8 +35,6 @@ cd au-boulot
 # 2. Installer les dépendances
 npm install
 ```
-
-## Lancement
 
 Deux serveurs à lancer, dans **deux terminaux séparés** :
 
@@ -47,44 +46,64 @@ npx json-server --watch db.json --port 3000
 npm run dev
 ```
 
-Puis ouvrir : [http://localhost:5173](http://localhost:5173)
+Puis ouvrir : http://localhost:5173
+
+## Routes
+
+| Route | Page | Accès |
+|---|---|---|
+| `/` | Accueil : bannière, recherche, filtres, grille paginée | Public |
+| `/connexion` | Authentification (connexion ET inscription, même page) | Public |
+| `/offres/:id` | Détail d'une offre, bandeau adapté au rôle | Public |
+| `/ajout` | Dépôt d'une offre | Admin seulement (redirection sinon) |
 
 ## Tests
 
 ```bash
-npm run test
+npx vitest
 ```
 
 Deux tests fonctionnels (Vitest + React Testing Library) :
+
 - affichage d'une carte d'offre avec ses données
-- redirection d'un visiteur non connecté vers la page de connexion (protection de route)
+- protection de route : un visiteur non connecté qui force l'URL `/ajout`
+  est redirigé vers la page de connexion
 
 ## Structure du projet
 
 ```
 au-boulot/
 ├── db.json                  # données : offres + users (API simulée)
-├── public/                  # images (bannières, favicon)
+├── public/                  # images (bannière, favicon)
 ├── src/
-│   ├── components/          # Navigation, OffreCarte, BarreRecherche...
-│   ├── context/             # AuthContext (état de connexion partagé)
-│   ├── pages/               # AccueilPage, DetailOffrePage, ConnexionPage,
-│   │                        # InscriptionPage, FormulaireOffrePage
-│   ├── services/            # appels API séparés des composants
+│   ├── assets/              # constantes.js : domaines, contrats, départements
+│   ├── components/          # Navigation, OffreCarte, BarreRecherche,
+│   │                        # ModaleSuppression, ModaleAnnulation
+│   ├── context/             # AuthContext : état de connexion partagé
+│   ├── hooks/               # useAuth : accès à la session partout
+│   ├── pages/               # AccueilPage, DetailOffrePage,
+│   │                        # AuthentificationPage (connexion + inscription),
+│   │                        # FormulaireOffrePage
+│   ├── services/            # offresService, authService (appels API)
 │   ├── App.jsx              # déclaration des routes
-│   └── App.css              # direction artistique
+│   ├── App.css              # la direction artistique
+│   └── main.jsx
 └── README.md
 ```
 
 ## Fonctionnalités
 
-- Affichage des offres en cartes, par pages (6 par page)
-- Page de détail par offre (accès réservé aux utilisateurs connectés)
-- Recherche par titre ou mot-clé, filtrage par domaine
-- Authentification simulée côté React : inscription, connexion, déconnexion
-- Protection des routes (redirection `/connexion` si non connecté, même en accès direct par URL)
-- CRUD complet des offres, réservé à l'administrateur
-- Messages de confirmation après chaque opération et redirections
+- Affichage des offres en cartes, six par page, pagination
+- Détail par offre : badges d'information, bandeau d'actions adapté au rôle
+  (visiteur invité à se connecter, utilisateur qui postule, admin qui gère)
+- Recherche plein texte (titre, entreprise, description), filtrage par domaine
+- Inscription, connexion, déconnexion : authentification simulée côté React,
+  état de connexion centralisé (contexte + hook dédié)
+- Candidature : "Embauche-moi !" ajoute l'offre au carnet de l'utilisateur,
+  badge "✓ Déjà postulé" sur les cartes et bouton désactivé sur la fiche
+- CRUD complet réservé à l'admin, avec modales de confirmation
+  (suppression, abandon de saisie)
+- Messages de confirmation ou d'erreur après chaque opération, redirections
 - Validation des champs obligatoires dans les formulaires
 
 ## Stack technique

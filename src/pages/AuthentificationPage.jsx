@@ -3,34 +3,45 @@ import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { getUsers, addUser } from "../services/authService";
 
+/**
+ * Authentification : un seul composant, deux modes.
+ * Le state `mode` ("connexion" | "inscription") décide du titre,
+ * du formulaire et de la phrase de bascule affichés.
+ */
 export default function AuthentificationPage() {
     const navigate = useNavigate();
-    const { user } = useAuth();
-    const { login } = useAuth();
-    
-    // Un seul composant, deux modes : "connexion" ou "inscription"
+
+    // ===== Session =====
+    const { user, login } = useAuth();
+
+    // Le mode affiché : "connexion" au premier passage
     const [mode, setMode] = useState("connexion");
 
-    // Les champs du formulaire
+    // ===== Champs du formulaire (partagés par les deux modes) =====
     const [nom, setNom] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    // Le message affiché (erreur OU succès), vide si rien à dire
+    // Message d'erreur OU de succès, vide quand il n'y a rien à dire
     const [message, setMessage] = useState("");
 
+    // Déjà connecté : la page ne sert à rien, retour à l'accueil
     if (user) {
         return <Navigate to="/" replace />;
     }
 
-    // ===== CONNEXION =====
+    /**
+     * Connexion : cherche l'utilisateur par email + mot de passe.
+     * Trouvé -> login() le place dans le contexte, retour à l'accueil.
+     * Introuvable -> message d'identifiants incorrects.
+     */
     async function handleConnexion(e) {
         e.preventDefault();
         setMessage("");
         try {
             const users = await getUsers();
-            const userTrouve = users.find(u =>
-                u.email === email && u.password === password
+            const userTrouve = users.find(
+                u => u.email === email && u.password === password
             );
             if (userTrouve) {
                 login(userTrouve);
@@ -43,7 +54,11 @@ export default function AuthentificationPage() {
         }
     }
 
-    // ===== INSCRIPTION =====
+    /**
+     * Inscription : crée le compte (rôle "user", jamais admin),
+     * puis bascule en mode connexion pour l'utiliser immédiatement.
+     * Le mot de passe est vidé, le nom et l'email restent pré-remplis.
+     */
     async function handleInscription(e) {
         e.preventDefault();
         setMessage("");
@@ -60,7 +75,9 @@ export default function AuthentificationPage() {
             .catch(() => setMessage("Erreur serveur : impossible de créer le compte."));
     }
 
-    // La bascule entre les deux modes
+    /**
+     * Bascule connexion <-> inscription, message effacé au passage.
+     */
     function basculerMode() {
         setMessage("");
         setMode(mode === "connexion" ? "inscription" : "connexion");
@@ -72,14 +89,14 @@ export default function AuthentificationPage() {
                 <div className="col-md-7 col-lg-6">
 
                     <div className="fiche-offre p-4">
-                        {/* La pastille noire du titre */}
-                        <h1 className="auth-titre fs-4 mb-4">
+                        {/* Le titre : pastille noire centrée, selon le mode */}
+                        <h1 className="auth-titre mx-auto fs-4 mb-4">
                             {mode === "connexion"
                                 ? "Connecte-toi travailleur !"
                                 : "Rejoins les rangs des travailleurs !"}
                         </h1>
 
-                        {/* Le message d'erreur ou de succès */}
+                        {/* Message d'erreur ou de succès */}
                         {message && <p className="auth-message fst-italic">{message}</p>}
 
                         {/* ===== MODE CONNEXION ===== */}
@@ -116,7 +133,9 @@ export default function AuthentificationPage() {
                             </form>
                         )}
 
-                        {/* ===== MODE INSCRIPTION ===== */}
+                        {/* ===== MODE INSCRIPTION =====
+                            Champs dédiés (ids distincts) pour éviter
+                            tout partage d'état avec la connexion */}
                         {mode === "inscription" && (
                             <form onSubmit={handleInscription}>
                                 <label className="form-label fw-bold" htmlFor="nom">
@@ -162,21 +181,24 @@ export default function AuthentificationPage() {
                             </form>
                         )}
 
-                        {/* La bascule, en bas de la carte */}
+                        {/* La bascule : le "!" vit hors du bouton pour que
+                            le texte cliquable reste "ici" / "viens par ici" */}
                         <p className="text-center mt-4 mb-0">
                             {mode === "connexion" ? (
-                                <>T'es pas encore inscrit ? Rectifie ça tout de suite{" "}
+                                <>
+                                    Tu n'es pas encore inscrit ? Rectifie ça tout de suite{" "}
                                     <button type="button" className="auth-lien" onClick={basculerMode}>
                                         ici
                                     </button>
-                                    !
+                                    {" !"}
                                 </>
                             ) : (
-                                <>Tu es déjà un brave travailleur ?{" "}
+                                <>
+                                    Tu es déjà un brave travailleur ?{" "}
                                     <button type="button" className="auth-lien" onClick={basculerMode}>
                                         viens par ici
                                     </button>
-                                     !
+                                    {" !"}
                                 </>
                             )}
                         </p>

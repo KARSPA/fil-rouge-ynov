@@ -9,73 +9,93 @@ import { DOMAINES_DEFAULT_FILTERS } from "../assets/constantes.js";
 import { Accordion } from "react-bootstrap";
 import useAuth from "../hooks/useAuth.js";
 
-const OFFRES_PAR_PAGE = 6; // 3 rangées de 2 colonnes
+// Six offres par page : trois rangées de deux colonnes dans la grille
+const OFFRES_PAR_PAGE = 6;
 
+/**
+ * Accueil : bannière, recherche plein texte, filtres par domaine,
+ * grille paginée des offres.
+ *
+ * Deux couches de données :
+ * - offers          : toutes les offres chargées de l'API (la source locale)
+ * - displayedOffers : ce qui reste après recherche et/ou filtres
+ */
 export default function AccueilPage() {
+  // ===== Session =====
   const { user } = useAuth();
+
+  // ===== Données =====
   const [offers, setOffers] = useState([]);
   const [displayedOffers, setDisplayedOffers] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
 
+  // ===== Recherche =====
   const [search, setSearch] = useState("");
 
+  // ===== Filtres par domaine =====
+  // searchDomains : un case à cocher par domaine ; allDomains : true = rien de filtré
   const [searchDomains, setSearchDomains] = useState(DOMAINES_DEFAULT_FILTERS);
   const [allDomains, setAllDomains] = useState(true);
 
-  // Nombre total de pages
+  // ===== Pagination =====
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Nombre total de pages (minimum 1, même sans résultat)
   const totalPages = Math.max(
     1,
-    Math.ceil(displayedOffers.length / OFFRES_PAR_PAGE),
+    Math.ceil(displayedOffers.length / OFFRES_PAR_PAGE)
   );
 
-  // Garantit une page valide
+  // Page demandée, recalée si elle dépasse après un filtre ou une recherche
   const safePage = Math.min(currentPage, totalPages);
 
-  // Index de la première offre de la page
+  // Découpage de la page courante
   const startIndex = (safePage - 1) * OFFRES_PAR_PAGE;
-
-  // Offres à afficher sur la page courante
   const paginatedOffers = displayedOffers.slice(
     startIndex,
-    startIndex + OFFRES_PAR_PAGE,
+    startIndex + OFFRES_PAR_PAGE
   );
 
-  function onSearch(search) {
-    setSearch(search);
+  /**
+   * Recherche plein texte : titre, entreprise et description.
+   * Remplace la source locale, puis remet filtres et page à zéro.
+   */
+  function onSearch(terme) {
+    setSearch(terme);
 
     const filters = [
-      { name: "titre", value: search },
-      { name: "entreprise", value: search },
-      { name: "description", value: search },
+      { name: "titre", value: terme },
+      { name: "entreprise", value: terme },
+      { name: "description", value: terme },
     ];
 
     getOffresWithStringFilter(filters)
       .then((data) => {
         setOffers(data);
         setDisplayedOffers(data);
-
-        // Retour à la première page
         setCurrentPage(1);
-
-        // Réinitialisation des filtres par domaines
         setSearchDomains(DOMAINES_DEFAULT_FILTERS);
         setAllDomains(true);
       })
       .catch((error) => console.error(error));
   }
 
+  /**
+   * "Aucun Filtre" : décoche tous les domaines,
+   * réaffiche toutes les offres en mémoire, page 1.
+   */
   function handleAllDomainFilterChange() {
-    // Lors d'un clic sur ce filtre, on désactive tous les autres ET on coche celui ci
     setSearchDomains(DOMAINES_DEFAULT_FILTERS);
-
     setAllDomains(true);
     setDisplayedOffers([...offers]);
-
-    // Retour à la première page
     setCurrentPage(1);
   }
 
-  function handleDomainFilterChange(e, domainIndex) {
+  /**
+   * Case d'un domaine : inverse sa case, recalcul des offres affichées.
+   * Aucune case cochée = tout afficher ; sinon on garde les offres
+   * dont le domaine est coché. Page 1 à chaque changement.
+   */
+  function handleDomainFilterChange(domainIndex) {
     const updatedDomains = searchDomains.map((domain, index) => ({
       ...domain,
       checked: index === domainIndex ? !domain.checked : domain.checked,
@@ -90,20 +110,17 @@ export default function AccueilPage() {
       setAllDomains(true);
     } else {
       const domainMap = {};
-
       updatedDomains.forEach((domain) => {
         domainMap[domain.domaine] = domain.checked;
       });
-
       setDisplayedOffers(offers.filter((offre) => domainMap[offre.domaine]));
-
       setAllDomains(false);
     }
 
-    // Retour à la première page après filtrage
     setCurrentPage(1);
   }
 
+  // ===== Chargement initial : toutes les offres de l'API =====
   useEffect(() => {
     getOffres()
       .then((data) => {
@@ -114,30 +131,34 @@ export default function AccueilPage() {
   }, []);
 
   return (
-    <div className='container mt-4'>
-      <header className='banner text-center text-white py-4'>
-        <h1 className='text-uppercase fw-bold'>Au Boulot !</h1>
-        <p className='fst-italic mb-0'>
+    <div className="container mt-4">
+      {/* Bannière de propagande */}
+      <header className="banner text-center text-white py-4">
+        <h1 className="text-uppercase fw-bold">Au Boulot !</h1>
+        <p className="fst-italic mb-0">
           La plateforme qui te met un coup de pied aux fesses
         </p>
-        <p className='fst-italic mb-0 pt-0'>
+        <p className="fst-italic mb-0 pt-0">
           pour faire décoller ta recherche d'emploi !
         </p>
       </header>
 
+      {/* Recherche plein texte */}
       <BarreRecherche search={search} onSearch={onSearch} />
 
-      <Accordion defaultActiveKey='0' flush className='accordion-shadow'>
-        <Accordion.Item eventKey='0'>
-          <Accordion.Header>Filtrer par domaines</Accordion.Header>
+      {/* Filtres par domaine : input invisible stylé par son label */}
+      <Accordion defaultActiveKey="0" flush className="accordion-shadow">
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>Filtrer par domaine</Accordion.Header>
           <Accordion.Body>
-            <div className='mb-0 position-relative'>
-              <div className='position-absolute'>
+            <div className="mb-0 position-relative">
+              {/* "Aucun Filtre" */}
+              <div className="position-absolute">
                 <input
-                  type='checkbox'
-                  className='btn-check'
-                  id={`btn-check-all`}
-                  autoComplete='off'
+                  type="checkbox"
+                  className="btn-check"
+                  id="btn-check-all"
+                  autoComplete="off"
                   checked={allDomains}
                   onChange={() => handleAllDomainFilterChange()}
                 />
@@ -145,21 +166,23 @@ export default function AccueilPage() {
                   className={
                     "none-domain-filter-btn " + (allDomains ? "active" : "")
                   }
-                  htmlFor={`btn-check-all`}
+                  htmlFor="btn-check-all"
                 >
                   Aucun Filtre
                 </label>
               </div>
-              <div className='d-flex flex-wrap gap-3 justify-content-center'>
+
+              {/* Un bouton-bascule par domaine */}
+              <div className="d-flex flex-wrap gap-3 justify-content-center">
                 {searchDomains.map((domaine, index) => (
-                  <div key={domaine.name}>
+                  <div key={domaine.domaine}>
                     <input
-                      type='checkbox'
-                      className='btn-check'
+                      type="checkbox"
+                      className="btn-check"
                       id={`btn-check-${index}`}
-                      autoComplete='off'
+                      autoComplete="off"
                       checked={domaine.checked}
-                      onChange={(e) => handleDomainFilterChange(e, index)}
+                      onChange={() => handleDomainFilterChange(index)}
                     />
                     <label
                       className={
@@ -178,19 +201,21 @@ export default function AccueilPage() {
         </Accordion.Item>
       </Accordion>
 
-      <h2 className='rubrique mt-4'>Les offres</h2>
+      <h2 className="rubrique mt-4">Les offres</h2>
 
-      <div className='cadre-offres mt-3 mb-5'>
+      <div className="cadre-offres mt-3 mb-5">
         {displayedOffers.length === 0 ? (
-          <p className='text-center fst-italic mb-0'>
-            Aucune offre ! Soyez fiers travailleurs, c'est grâce à vous que le
+          /* Aucun résultat : message de propagande */
+          <p className="text-center fst-italic mb-0">
+            Aucune offre ! Sois fier travailleur, c&apos;est grâce à toi que le
             plein emploi est atteint !
           </p>
         ) : (
           <>
-            {/* Offres de la page courante */}
-            <div className='grille-offres'>
+            {/* La grille : six cartes maximum par page */}
+            <div className="grille-offres">
               {paginatedOffers.map((offre) => {
+                // L'utilisateur a-t-il déjà postulé à cette offre ?
                 const applied =
                   user?.offres?.includes(String(offre.id)) ?? false;
 
@@ -200,11 +225,11 @@ export default function AccueilPage() {
               })}
             </div>
 
-            {/* Pagination */}
+            {/* Pagination : affichée seulement si plus d'une page */}
             {totalPages > 1 && (
-              <div className='d-flex justify-content-center align-items-center gap-3 mt-3 pt-3 border-top'>
+              <div className="d-flex justify-content-center align-items-center gap-3 mt-3 pt-3 border-top">
                 <button
-                  className='btn btn-outline-dark'
+                  className="btn-retour"
                   disabled={safePage === 1}
                   onClick={() => setCurrentPage(safePage - 1)}
                 >
@@ -216,7 +241,7 @@ export default function AccueilPage() {
                 </span>
 
                 <button
-                  className='btn btn-outline-dark'
+                  className="btn-retour"
                   disabled={safePage === totalPages}
                   onClick={() => setCurrentPage(safePage + 1)}
                 >
