@@ -4,7 +4,7 @@
       "id": "1",
       "titre": "Développeur Mainframe H/F",
       "description": "Nous recherchons un Développeur Mainframe pour intervenir sur la conception, le développement, la maintenance et l'évolution d'applications métiers en environnement IBM z/OS. Vous serez chargé du développement de programmes COBOL, de la gestion des traitements batch via JCL, de l'exploitation des bases de données DB2 et des transactions CICS. Vous participerez également à l'analyse et à la résolution des incidents, aux phases de tests et de mise en production, ainsi qu'à l'amélioration continue des applications. Une bonne maîtrise de COBOL, JCL, DB2 et de l'environnement Mainframe est attendue, ainsi qu'un bon esprit d'analyse, de la rigueur et une capacité à travailler en équipe.",
-      "entreprise": "cgi",
+      "entreprise": "CGI",
       "contrat": "CDI",
       "domaine": "Développement",
       "lieu": "Bordeaux - 33",
@@ -150,7 +150,8 @@
       "salaireAnnuelMax": 65000,
       "expAnneeMini": 8,
       "datePublication": "01/05/2026"
-    },{
+    },
+    {
       "id": "12",
       "titre": "Expert cybersécurité H/F",
       "description": "lorem ipsum ....",
@@ -163,19 +164,6 @@
       "salaireAnnuelMax": 65000,
       "expAnneeMini": 8,
       "datePublication": "01/05/2026"
-    },
-    {
-      "titre": "Manager",
-      "description": "Manager",
-      "entreprise": "LBP",
-      "contrat": "Freelance",
-      "domaine": "Cybersécurité",
-      "lieu": "Bordeaux - 33",
-      "salaireAnnuelMin": 1,
-      "salaireAnnuelMax": 13,
-      "expAnneeMini": 56,
-      "datePublication": "18/11/2026",
-      "id": "ZUjBJQlU3PE"
     }
   ],
   "users": [
@@ -184,14 +172,19 @@
       "nom": "Diane",
       "email": "diane@auboulot.fr",
       "password": "admin123",
-      "role": "admin"
+      "role": "admin",
+      "offres": [
+        "1",
+        "1"
+      ]
     },
     {
       "id": "2",
       "nom": "Yvan",
       "email": "Yvan@auboulot.fr",
       "password": "user123",
-      "role": "user"
+      "role": "user",
+      "offres": []
     },
     {
       "nom": "zahia",
@@ -207,7 +200,8 @@
         "9",
         "8",
         "2",
-        "6"
+        "6",
+        "10"
       ]
     }
   ],

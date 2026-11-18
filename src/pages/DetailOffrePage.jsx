@@ -286,20 +286,23 @@ function DetailOffrePage() {
                     />
                   </div>
                 </div>
-
-                                <div className="d-flex justify-content-center gap-3 mb-4">
-    <button type="submit" className="btn-actions-bandeau btn-actions-modif py-2 px-4">
-        Valider la modification
-    </button>
-    <button type="button" onClick={handleAnnuler} className="btn-actions-bandeau py-2 px-4">
-        Annuler
-    </button>
-</div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
               </form>
+              <div className='d-flex justify-content-center gap-3 mb-4'>
+                <button
+                  type='submit'
+                  className='btn-actions-bandeau btn-actions-modif py-2 px-4'
+                  onClick={handleSubmitModif}
+                >
+                  Valider la modification
+                </button>
+                <button
+                  type='button'
+                  onClick={handleAnnuler}
+                  className='btn-actions-bandeau py-2 px-4'
+                >
+                  Annuler
+                </button>
+              </div>
             </div>
           </div>
         </div>
