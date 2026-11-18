@@ -15,15 +15,12 @@ export default function Navigation() {
     return (
         <nav className="navbar au-boulot-nav px-3 gap-2">
             {/* ===== GAUCHE : marque + navigation ===== */}
-            <NavLink to="/" className="navbar-brand au-boulot-brand me-3">
+            <NavLink className="navbar-brand au-boulot-brand" to="/">
                 AU BOULOT !
-            </NavLink>
-            <NavLink to="/" className="nav-link text-white">
-                Accueil
             </NavLink>
             {isAdmin && (
                 <NavLink to="/ajout" className="btn-nav-bleu">
-                    Déposer une annonce
+                    Déposer une offre
                 </NavLink>
             )}
 
