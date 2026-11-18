@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function OffreCarte({ offre }) {
+export default function OffreCarte({ offre, applied }) {
   return (
     <div className='w-100 h-100'>
       <div className='border rounded p-4 offer-card h-100 d-flex flex-column'>
@@ -50,6 +50,12 @@ export default function OffreCarte({ offre }) {
                 Voir l'offre
               </Link>
             </div>
+
+            {applied && (
+              <span className=' mt-2 badge rounded-pill bg-success-subtle text-success border border-success-subtle'>
+                ✓ Déjà postulé
+              </span>
+            )}
           </div>
         </div>
       </div>
