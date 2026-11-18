@@ -43,6 +43,46 @@ export default function OffreCarte({ offre }) {
                     </div>
                 </div>
             </div>
+            <div className='d-flex flex-row gap-2 align-items-center'>
+              <p>
+                <span className='badge bg-primary'>{offre.domaine}</span>
+              </p>
+              <p>
+                <span className='badge bg-primary'>{offre.contrat}</span>
+              </p>
+              <p>
+                <span className='badge bg-primary'>{offre.lieu}</span>
+              </p>
+            </div>
+            <div className='d-flex flex-row gap-2'>
+              <p>
+                <span className='badge bg-primary'>
+                  {offre.salaireAnnuelMin} - {offre.salaireAnnuelMax} € / an
+                </span>
+              </p>
+              <p>
+                <span className='badge bg-primary'>
+                  Exp : {offre.expAnneeMini} année(s)
+                </span>
+              </p>
+            </div>
+            <div className='d-flex flex-row justify-content-between align-content-center'>
+              <p
+                className='d-flex fst-italic'
+                style={{ height: 100 + "%", alignItems: "center" }}
+              >
+                <span>Publiée le : {offre.datePublication}</span>
+              </p>
+              <Link
+                to={`offres/${offre.id}`}
+                className='d-block btn btn-primary rounded-pill'
+              >
+                Voir l'offre
+              </Link>
+            </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }

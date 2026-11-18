@@ -9,11 +9,11 @@ export default function AccueilPage() {
     const [offers, setOffers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
-    useEffect(() => {
-        getOffres()
-            .then(data => setOffers(data))
-            .catch(error => console.error(error));
-    }, []);
+  useEffect(() => {
+    getOffres()
+      .then((data) => setOffers(data))
+      .catch((error) => console.error(error));
+  }, []);
 
     // --- Pagination ---
     const totalPages = Math.max(1, Math.ceil(offers.length / OFFRES_PAR_PAGE));
@@ -82,5 +82,7 @@ export default function AccueilPage() {
                 )}
             </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
