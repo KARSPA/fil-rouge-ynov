@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
-import {getOffres, getOffresWithStringFilter} from "../services/offresService.js";
+import {
+  getOffres,
+  getOffresWithStringFilter,
+} from "../services/offresService.js";
 import BarreRecherche from "../components/BarreRecherche.jsx";
 import OffreCarte from "../components/OffreCarte.jsx";
-import {DOMAINES_DEFAULT_FILTERS} from "../assets/constantes.js";
-import {Accordion} from "react-bootstrap";
+import { DOMAINES_DEFAULT_FILTERS } from "../assets/constantes.js";
+import { Accordion } from "react-bootstrap";
+import useAuth from "../hooks/useAuth.js";
 
 const OFFRES_PAR_PAGE = 6; // 3 rangées de 2 colonnes
 
 export default function AccueilPage() {
+  const { user } = useAuth();
   const [offers, setOffers] = useState([]);
   const [displayedOffers, setDisplayedOffers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -63,18 +68,18 @@ export default function AccueilPage() {
             .catch(error => console.error(error));
     }
 
-  function handleAllDomainFilterChange(){
-      // Lors d'un clic sur ce filtre, on désactive tous les autres ET on coche celui ci
-      setSearchDomains(DOMAINES_DEFAULT_FILTERS);
+  function handleAllDomainFilterChange() {
+    // Lors d'un clic sur ce filtre, on désactive tous les autres ET on coche celui ci
+    setSearchDomains(DOMAINES_DEFAULT_FILTERS);
 
-      setAllDomains(true);
-      setDisplayedOffers([...offers]);
-
-      // Retour à la première page
-      setCurrentPage(1);
+    setAllDomains(true);
+    setDisplayedOffers([...offers]);
+    
+    // Retour à la première page
+    setCurrentPage(1);
   }
 
-    function handleDomainFilterChange(e, domainIndex) {
+   function handleDomainFilterChange(e, domainIndex) {
 
         const updatedDomains = searchDomains.map((domain, index) => ({
             ...domain,
@@ -110,17 +115,14 @@ export default function AccueilPage() {
         setCurrentPage(1);
     }
 
-
   useEffect(() => {
     getOffres()
       .then((data) => {
-          setOffers(data)
-          setDisplayedOffers(data)
+        setOffers(data);
+        setDisplayedOffers(data);
       })
       .catch((error) => console.error(error));
   }, []);
-
-
 
   return (
     <div className='container mt-4'>
