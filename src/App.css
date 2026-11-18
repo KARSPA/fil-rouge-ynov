@@ -241,3 +241,71 @@ h1, h2, .navbar-brand {
     background: #780000;
     color: #fff;
 }
+/* ===== Page auth ===== */
+.auth-titre {
+    background: #1b1b1b;
+    color: #fff;
+    width: fit-content;
+    padding: 4px 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.auth-input {
+    background: #fdf6e3;            /* le crème du fond de page */
+    border: 2px solid #1b1b1b;     /* le cadre noir maison */
+    border-radius: 0;
+    font-family: inherit;
+}
+.auth-input:focus {
+    background: #fff;
+    border-color: #0d6efd;         /* notre bleu à nous */
+    box-shadow: none;              /* on tue l'ombre bleu floue de Bootstrap */
+    outline: none;
+}
+.auth-message {
+    background: #1b1b1b;
+    color: #ffe9ec;
+    width: fit-content;
+    padding: 3px 12px;
+    margin: 0 auto 16px;
+}
+.auth-lien {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #780000;
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+}
+.auth-lien:hover {
+    color: #c1121f;
+}
+/* ===== Modale (DA) ===== */
+.modale-da-content {
+    background: #fdf6e3;            /* le crème du fond de page */
+    border: 2px solid #1b1b1b;     /* le cadre noir maison */
+    border-radius: 0;              /* angles francs, pas de pilule */
+    box-shadow: 6px 6px 0 #1b1b1b;  /* l'ombre portée dure */
+    font-family: inherit;
+}
+.modale-da-content .modal-header,
+.modale-da-content .modal-footer {
+    border-color: #1b1b1b;
+}
+/* Le swap de texte au survol du bouton de confirmation */
+.modale-confirm {
+    min-width: 170px;              /* largeur stable : rien ne bouge au changement de texte */
+}
+.modale-confirm .texte-confirm {
+    display: none;
+}
+.modale-confirm:hover .texte-question {
+    display: none;
+}
+.modale-confirm:hover .texte-confirm {
+    display: inline;
+}
