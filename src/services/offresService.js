@@ -41,3 +41,12 @@ export async function addOffer(offre) {
 
     return await response.json()
 }
+
+export async function deleteOffre(id) {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+  });
+  if (!response.ok) {
+    throw new Error("Erreur lors de la suppression");
+  }
+}

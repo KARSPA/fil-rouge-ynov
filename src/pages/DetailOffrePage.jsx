@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { getOfferById, modifyOffer } from "../services/offresService";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+    deleteOffre,
+    getOfferById,
+    modifyOffer,
+} from "../services/offresService";
 import { DOMAINES, TYPE_CONTRAT } from "../assets/constantes.js";
-import useAuth from "../hooks/useAuth.js";
+import useAuth from "../hooks/useAuth";
+import ModaleSuppression from "../components/ModaleSuppression.jsx";
 
-export default function DetailOffrePage() {
+function DetailOffrePage() {
+    const navigate = useNavigate();
     const { id } = useParams();
 
     // ===== Couche AUTH : le rôle vient du contexte partagé =====
@@ -13,8 +19,8 @@ export default function DetailOffrePage() {
 
     // ===== L'offre affichée =====
     const [offer, setOffer] = useState(null);
-    const [erreur, setErreur] = useState(null);      // "Offre introuvable"
-    const [message, setMessage] = useState("");       // messages d'action (modification)
+    const [erreur, setErreur] = useState(null);
+    const [message, setMessage] = useState("");
 
     // ===== Mode modification : les champs du formulaire =====
     const [modify, setModify] = useState(false);
@@ -28,7 +34,10 @@ export default function DetailOffrePage() {
     const [domaine, setDomaine] = useState(null);
     const [expAnneeMini, setMinExp] = useState(null);
 
-    // ===== Chargement de l'offre, avec gestion "Offre introuvable" =====
+    // ===== Modale de confirmation (AVANT tout early return : Rules of Hooks) =====
+    const [modalShow, setModalShow] = useState(false);
+
+    // ===== Chargement de l'offre =====
     useEffect(() => {
         setOffer(null);
         setErreur(null);
@@ -40,7 +49,7 @@ export default function DetailOffrePage() {
             });
     }, [id]);
 
-    // ===== Entrer en mode modification : pré-remplissage depuis l'offre =====
+    // ===== Entrer en mode modification : pré-remplissage =====
     function handleModifyButton() {
         setTitre(offer.titre);
         setLieu(offer.lieu);
@@ -69,10 +78,10 @@ export default function DetailOffrePage() {
                 expAnneeMini,
                 salaireAnnuelMin,
                 salaireAnnuelMax,
-                datePublication: offer.datePublication,  // conservée, que le service fasse PUT ou PATCH
+                datePublication: offer.datePublication,
             };
             await modifyOffer(id, newOffer);
-            setOffer({ ...offer, ...newOffer });   // mise à jour immédiate de la fiche
+            setOffer({ ...offer, ...newOffer });
             setModify(false);
             setMessage("Offre modifiée avec succès !");
         } catch (error) {
@@ -84,6 +93,18 @@ export default function DetailOffrePage() {
     function handleAnnuler() {
         setModify(false);
         setMessage("");
+    }
+
+    // ===== Suppression : exécutée après confirmation de la modale =====
+    async function handleDelete() {
+        try {
+            await deleteOffre(id);
+            navigate("/");
+        } catch (error) {
+            console.error("Error :", error);
+            setModalShow(false);
+            setMessage("L'annonce n'a pas pu être supprimée.");
+        }
     }
 
     // ===== Erreur : l'offre n'existe pas =====
@@ -113,7 +134,6 @@ export default function DetailOffrePage() {
                             </h1>
 
                             <form onSubmit={handleSubmitModif}>
-                                {/* Les boutons DANS le form : les required s'exécutent enfin */}
                                 <label className="form-label fw-bold" htmlFor="titre-modif">Titre</label>
                                 <input
                                     id="titre-modif"
@@ -234,7 +254,7 @@ export default function DetailOffrePage() {
                                             className="form-control auth-input"
                                             required
                                             value={lieu}
-                                            onChange={e => setLieu(e.target.value)}   // ← le bug corrigé
+                                            onChange={e => setLieu(e.target.value)}
                                         />
                                     </div>
                                 </div>
@@ -257,79 +277,87 @@ export default function DetailOffrePage() {
 
     // ==================== MODE AFFICHAGE ====================
     return (
-        <div className="container mt-4 mb-5">
-            <div className="row justify-content-center">
-                <div className="col-lg-9">
-                    {/* ===== La fiche, avec la DA ===== */}
-                    <div className="fiche-offre p-4">
-                        <div className="d-flex gap-3 align-items-start">
-                            <img
-                                src="https://placehold.co/400x250"
-                                alt="image offre"
-                                className="rounded fiche-offre-img flex-shrink-0"
-                            />
-                            <div>
-                                <h1 className="fs-3 mb-1">{offer.titre}</h1>
-                                <p className="mb-2 fst-italic">{offer.entreprise} - {offer.lieu}</p>
-                                <div className="d-flex flex-wrap gap-2">
-                                    <span className="badge bg-primary">{offer.domaine}</span>
-                                    <span className="badge bg-primary">{offer.contrat}</span>
-                                    <span className="badge bg-primary-subtle text-primary">
-                                        {offer.salaireAnnuelMin} - {offer.salaireAnnuelMax} € / an
-                                    </span>
-                                    <span className="badge bg-primary-subtle text-primary">
-                                        Exp : {offer.expAnneeMini} an(s)
-                                    </span>
+        <>
+            <div className="container mt-4 mb-5">
+                <div className="row justify-content-center">
+                    <div className="col-lg-9">
+                        <div className="fiche-offre p-4">
+                            <div className="d-flex gap-3 align-items-start">
+                                <img
+                                    src="https://placehold.co/400x250"
+                                    alt="image offre"
+                                    className="rounded fiche-offre-img flex-shrink-0"
+                                />
+                                <div>
+                                    <h1 className="fs-3 mb-1">{offer.titre}</h1>
+                                    <p className="mb-2 fst-italic">{offer.entreprise} - {offer.lieu}</p>
+                                    <div className="d-flex flex-wrap gap-2">
+                                        <span className="badge bg-primary">{offer.domaine}</span>
+                                        <span className="badge bg-primary">{offer.contrat}</span>
+                                        <span className="badge bg-primary-subtle text-primary">
+                                            {offer.salaireAnnuelMin} - {offer.salaireAnnuelMax} € / an
+                                        </span>
+                                        <span className="badge bg-primary-subtle text-primary">
+                                            Exp : {offer.expAnneeMini} an(s)
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
+
+                            <p className="mt-3 mb-1">{offer.description}</p>
+                            <p className="fst-italic text-secondary mb-0">
+                                Publiée le : {offer.datePublication}
+                            </p>
                         </div>
 
-                        <p className="mt-3 mb-1">{offer.description}</p>
-                        <p className="fst-italic text-secondary mb-0">
-                            Publiée le : {offer.datePublication}
-                        </p>
-                    </div>
+                        {message && <p className="auth-message fst-italic mt-3 mx-auto">{message}</p>}
 
-                    {/* Le message de succès/erreur, dans la DA */}
-                    {message && <p className="auth-message fst-italic mt-3 mx-auto">{message}</p>}
+                        <div className="bandeau-actions d-flex justify-content-center gap-3 py-3">
+                            {!user && (
+                                <Link to="/connexion" className="btn-actions-bandeau">
+                                    Connecte-toi et rejoins les rangs !
+                                </Link>
+                            )}
 
-                    {/* ===== Le bandeau d'actions selon le rôle ===== */}
-                    <div className="bandeau-actions d-flex justify-content-center gap-3 py-3">
-                        {/* Visiteur : pas connecté → on le pousse vers la connexion */}
-                        {!user && (
-                            <Link to="/connexion" className="btn-actions-bandeau">
-                                Connecte-toi et rejoins les rangs !
-                            </Link>
-                        )}
-
-                        {/* User connecté : candidature (fictive pour l'instant) */}
-                        {user && !isAdmin && (
-                            <button className="btn-actions-bandeau">
-                                Au charbon !
-                            </button>
-                        )}
-
-                        {/* Admin connecté : modifier + supprimer */}
-                        {isAdmin && (
-                            <>
-                                <button
-                                    className="btn-actions-bandeau btn-actions-modif"
-                                    onClick={handleModifyButton}
-                                >
-                                    Modifier l'offre
+                            {user && !isAdmin && (
+                                <button className="btn-actions-bandeau">
+                                    Au charbon !
                                 </button>
-                                <button className="btn-actions-bandeau btn-actions-suppr">
-                                    Supprimer l'offre
-                                </button>
-                            </>
-                        )}
-                    </div>
+                            )}
 
-                    <div className="text-center mt-3">
-                        <Link to="/" className="btn btn-outline-dark">← Retour aux offres</Link>
+                            {isAdmin && (
+                                <>
+                                    <button
+                                        className="btn-actions-bandeau btn-actions-modif"
+                                        onClick={handleModifyButton}
+                                    >
+                                        Modifier l'offre
+                                    </button>
+                                    <button
+                                        className="btn-actions-bandeau btn-actions-suppr"
+                                        onClick={() => setModalShow(true)}
+                                    >
+                                        Supprimer l'offre
+                                    </button>
+                                </>
+                            )}
+                        </div>
+
+                        <div className="text-center mt-3">
+                            <Link to="/" className="btn btn-outline-dark">← Retour aux offres</Link>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            {/* La modale, nue : react-bootstrap la rend dans le body via un portal */}
+            <ModaleSuppression
+                show={modalShow}
+                handleDelete={handleDelete}
+                onHide={() => setModalShow(false)}
+            />
+        </>
     );
 }
+
+export default DetailOffrePage;
