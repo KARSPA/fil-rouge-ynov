@@ -144,7 +144,7 @@
       "id": "1",
       "nom": "Diane",
       "email": "diane@auboulot.fr",
-      "password": "admin123",
+      "password": "ThisisasecurepasswordYNOV2026",
       "role": "admin",
       "offres": []
     },
