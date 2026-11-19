@@ -1,8 +1,12 @@
-# PROJET "AU BOULOT !", une plateforme de recherche d'emploi
+# AU BOULOT ! — plateforme de recherche d'emploi
 
-Plateforme de consultation d'offres d'emploi, classées par domaine
-(développement, cybersécurité, réseau, etc.).
+Application de consultation d'offres d'emploi classées par domaine
+(développement, cybersécurité, réseau...), avec recherche, filtrage,
+candidature et gestion des offres par un administrateur.
 Projet fil rouge — React, React Router, JSON Server.
+
+**Dépôt :** https://github.com/KARSPA/fil-rouge-ynov
+**Présentation du projet (soutenance) :** [lien Canva à compléter]
 
 ## Rôles
 
@@ -16,8 +20,8 @@ Projet fil rouge — React, React Router, JSON Server.
 
 | Email | Mot de passe | Rôle |
 |---|---|---|
-| diane@auboulot.fr | admin123 | admin |
-| Yvan@auboulot.fr | user123 | user |
+| diane@auboulot.fr | ThisisasecurepasswordYNOV2026 | admin |
+| ivan@auboulot.fr | user123 | user |
 | zahia@auboulot.fr | 1234 | user (a déjà postulé à plusieurs offres : pratique pour tester le badge "✓ Déjà postulé") |
 
 ## Prérequis
@@ -28,11 +32,9 @@ Projet fil rouge — React, React Router, JSON Server.
 ## Installation et lancement
 
 ```bash
-# 1. Cloner le dépôt
-git clone <url-du-depot>
-cd au-boulot
-
-# 2. Installer les dépendances
+# 1. Cloner le dépôt et installer les dépendances
+git clone https://github.com/KARSPA/fil-rouge-ynov.git
+cd fil-rouge-ynov
 npm install
 ```
 
@@ -40,7 +42,7 @@ Deux serveurs à lancer, dans **deux terminaux séparés** :
 
 ```bash
 # Terminal 1 — l'API (JSON Server, port 3000)
-npx json-server --watch db.json --port 3000
+npx json-server db.json
 
 # Terminal 2 — l'application (Vite, port 5173)
 npm run dev
@@ -48,32 +50,49 @@ npm run dev
 
 Puis ouvrir : http://localhost:5173
 
+## Tests
+
+```bash
+$ npx vitest run --environment jsdom        # une passe, rend la main
+```
+
+Deux tests fonctionnels (Vitest + React Testing Library, environnement jsdom) :
+
+- **Affichage d'une carte d'offre** : la carte rend le titre, l'entreprise,
+  le lieu, le contrat et la date de publication de l'offre
+- **Navigation** : le lien "Voir l'offre" de la carte pointe vers la page
+  détail de l'offre (`/offres/:id`)
+
 ## Routes
 
 | Route | Page | Accès |
 |---|---|---|
-| `/` | Accueil : bannière, recherche, filtres, grille paginée | Public |
-| `/connexion` | Authentification (connexion ET inscription, même page) | Public |
-| `/offres/:id` | Détail d'une offre, bandeau adapté au rôle | Public |
-| `/ajout` | Dépôt d'une offre | Admin seulement (redirection sinon) |
+| `/` | Accueil : bannière, compteur d'offres, recherche, filtres, grille paginée | Public |
+| `/connexion` | Connexion et inscription (même page, deux modes) | Public |
+| `/offres/:id` | Détail d'une offre, bandeau d'actions adapté au rôle | Public |
+| `/ajout` | Création d'une offre | Admin seulement (redirection vers `/connexion` sinon) |
 
-## Tests
+## Fonctionnalités
 
-```bash
-npx vitest
-```
-
-Deux tests fonctionnels (Vitest + React Testing Library) :
-
-- affichage d'une carte d'offre avec ses données
-- protection de route : un visiteur non connecté qui force l'URL `/ajout`
-  est redirigé vers la page de connexion
+- Accueil : grille d'offres en cartes, six par page, pagination,
+  **nombre total d'offres affiché**, recherche plein texte (titre, entreprise,
+  description), filtrage par domaine
+- Fiche détail : badges d'information, bandeau d'actions adapté au rôle
+  (visiteur invité à se connecter, utilisateur qui postule, admin qui gère)
+- Candidature : "Embauche-moi !" ajoute l'offre au carnet de l'utilisateur,
+  badge "✓ Déjà postulé" sur les cartes, double candidature impossible
+- Authentification simulée côté React (inscription, connexion, déconnexion),
+  état de session partagé (contexte + hook), champs de saisie validés
+- CRUD complet réservé à l'admin, avec modales de confirmation
+  (suppression, abandon de saisie)
+- Protection des routes : `/ajout` inaccessible sans session admin,
+  redirection automatique même en accès direct par URL
 
 ## Structure du projet
 
 ```
-au-boulot/
-├── db.json                  # données : offres + users (API simulée)
+fil-rouge-ynov/
+├── db.json                  # données : offres + users (API simulée) + comptes de démo
 ├── public/                  # images (bannière, favicon)
 ├── src/
 │   ├── assets/              # constantes.js : domaines, contrats, départements
@@ -85,26 +104,12 @@ au-boulot/
 │   │                        # AuthentificationPage (connexion + inscription),
 │   │                        # FormulaireOffrePage
 │   ├── services/            # offresService, authService (appels API)
+│   ├── tests/               # tests Vitest (composants)
 │   ├── App.jsx              # déclaration des routes
 │   ├── App.css              # la direction artistique
 │   └── main.jsx
 └── README.md
 ```
-
-## Fonctionnalités
-
-- Affichage des offres en cartes, six par page, pagination
-- Détail par offre : badges d'information, bandeau d'actions adapté au rôle
-  (visiteur invité à se connecter, utilisateur qui postule, admin qui gère)
-- Recherche plein texte (titre, entreprise, description), filtrage par domaine
-- Inscription, connexion, déconnexion : authentification simulée côté React,
-  état de connexion centralisé (contexte + hook dédié)
-- Candidature : "Embauche-moi !" ajoute l'offre au carnet de l'utilisateur,
-  badge "✓ Déjà postulé" sur les cartes et bouton désactivé sur la fiche
-- CRUD complet réservé à l'admin, avec modales de confirmation
-  (suppression, abandon de saisie)
-- Messages de confirmation ou d'erreur après chaque opération, redirections
-- Validation des champs obligatoires dans les formulaires
 
 ## Stack technique
 
