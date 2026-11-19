@@ -144,7 +144,7 @@
       "id": "1",
       "nom": "Diane",
       "email": "diane@auboulot.fr",
-      "password": "admin123",
+      "password": "ThisisasecurepasswordYNOV2026",
       "role": "admin",
       "offres": []
     },
@@ -162,19 +162,7 @@
       "password": "1234",
       "role": "user",
       "id": "KnB0QOZFytQ",
-      "offres": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "9",
-        "8",
-        "2",
-        "6",
-        "10",
-        "5",
-        "11"
-      ]
+      "offres": ["1", "2", "3", "4", "9", "8", "2", "6", "10", "5", "11", "7"]
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
