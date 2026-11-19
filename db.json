@@ -15,9 +15,9 @@
     },
     {
       "id": "3",
-      "titre": "opérateur industriel",
+      "titre": "Opérateur Industriel",
       "description": "Nous recherchons un Technicien z/OS pour assurer l'administration, l'exploitation et le maintien en condition opérationnelle des environnements Mainframe IBM. Vous serez chargé de la surveillance des systèmes, du suivi des traitements batch, de la gestion des incidents et des demandes d'exploitation, ainsi que de l'exécution des opérations techniques courantes. Vous interviendrez sur les environnements z/OS, JCL, TSO/ISPF et les outils de supervision, en collaboration avec les équipes systèmes, études et production. Vous participerez également aux opérations de maintenance, aux mises en production et à l'amélioration continue de la qualité de service. Rigueur, réactivité, autonomie et capacité à travailler en équipe sont essentielles pour ce poste.",
-      "entreprise": "boeing",
+      "entreprise": "Boeing",
       "contrat": "CDI",
       "domaine": "Réseau",
       "lieu": "Montpellier - 34",
@@ -57,7 +57,7 @@
     {
       "id": "7",
       "titre": "Expert cybersécurité H/F",
-      "description": "lorem ipsum ....",
+      "description": "Nous recherchons un Expert en cybersécurité pour accompagner la sécurisation du système d'information et garantir la protection des infrastructures, des applications et des données de l'entreprise. Vous serez chargé d'identifier les vulnérabilités, d'évaluer les risques, de définir et mettre en œuvre les politiques de sécurité, ainsi que de piloter les audits et les plans de remédiation. Vous interviendrez également sur la gestion des incidents de sécurité, l'analyse des menaces, le renforcement des dispositifs de protection et la mise en conformité avec les normes et réglementations en vigueur. Vous collaborerez étroitement avec les équipes infrastructure, réseau, systèmes et développement afin d'intégrer les bonnes pratiques de sécurité dans les projets. Une solide expertise en cybersécurité, une bonne connaissance des environnements techniques et des référentiels tels que ISO 27001, NIST ou ANSSI sont attendues, ainsi qu'un esprit d'analyse, de la rigueur et une forte capacité à anticiper les risques.",
       "entreprise": "La Banque Postale",
       "contrat": "CDD",
       "domaine": "Cybersécurité",
@@ -105,36 +105,49 @@
       "domaine": "Cybersécurité",
       "lieu": "Paris - 75",
       "dureeContrat": "6 mois",
-      "salaireAnnuelMin": 60000,
+      "salaireAnnuelMin": 40000,
       "salaireAnnuelMax": 65000,
       "expAnneeMini": 8,
-      "datePublication": "01/05/2026"
+      "datePublication": "06/05/2026"
     },
     {
       "id": "11",
       "titre": "Expert cybersécurité H/F",
-      "description": "lorem ipsum ....",
+      "description": "Nous recherchons un Expert en cybersécurité pour accompagner la sécurisation du système d'information et garantir la protection des infrastructures, des applications et des données de l'entreprise. Vous serez chargé d'identifier les vulnérabilités, d'évaluer les risques, de définir et mettre en œuvre les politiques de sécurité, ainsi que de piloter les audits et les plans de remédiation. Vous interviendrez également sur la gestion des incidents de sécurité, l'analyse des menaces, le renforcement des dispositifs de protection et la mise en conformité avec les normes et réglementations en vigueur. Vous collaborerez étroitement avec les équipes infrastructure, réseau, systèmes et développement afin d'intégrer les bonnes pratiques de sécurité dans les projets. Une solide expertise en cybersécurité, une bonne connaissance des environnements techniques et des référentiels tels que ISO 27001, NIST ou ANSSI sont attendues, ainsi qu'un esprit d'analyse, de la rigueur et une forte capacité à anticiper les risques.",
       "entreprise": "La Banque Postale",
       "contrat": "CDD",
       "domaine": "Cybersécurité",
       "lieu": "Paris - 75",
       "dureeContrat": "6 mois",
-      "salaireAnnuelMin": 60000,
-      "salaireAnnuelMax": 65000,
+      "salaireAnnuelMin": 30000,
+      "salaireAnnuelMax": 55000,
       "expAnneeMini": 8,
-      "datePublication": "01/05/2026"
+      "datePublication": "02/05/2026"
     },
     {
       "id": "12",
       "titre": "Expert cybersécurité H/F",
-      "description": "lorem ipsum ....",
+      "description": "Nous recherchons un Expert en cybersécurité pour accompagner la sécurisation du système d'information et garantir la protection des infrastructures, des applications et des données de l'entreprise. Vous serez chargé d'identifier les vulnérabilités, d'évaluer les risques, de définir et mettre en œuvre les politiques de sécurité, ainsi que de piloter les audits et les plans de remédiation. Vous interviendrez également sur la gestion des incidents de sécurité, l'analyse des menaces, le renforcement des dispositifs de protection et la mise en conformité avec les normes et réglementations en vigueur. Vous collaborerez étroitement avec les équipes infrastructure, réseau, systèmes et développement afin d'intégrer les bonnes pratiques de sécurité dans les projets. Une solide expertise en cybersécurité, une bonne connaissance des environnements techniques et des référentiels tels que ISO 27001, NIST ou ANSSI sont attendues, ainsi qu'un esprit d'analyse, de la rigueur et une forte capacité à anticiper les risques.",
       "entreprise": "La Banque Postale",
       "contrat": "CDD",
       "domaine": "Cybersécurité",
       "lieu": "Paris - 75",
       "dureeContrat": "6 mois",
-      "salaireAnnuelMin": 60000,
-      "salaireAnnuelMax": 65000,
+      "salaireAnnuelMin": 40000,
+      "salaireAnnuelMax": 45000,
+      "expAnneeMini": 8,
+      "datePublication": "01/05/2026"
+    },
+    {
+      "id": "13",
+      "titre": "Développeur d'Outils Applicatifs H/F",
+      "description": "Nous recherchons un Expert en cybersécurité pour accompagner la sécurisation du système d'information et garantir la protection des infrastructures, des applications et des données de l'entreprise. Vous serez chargé d'identifier les vulnérabilités, d'évaluer les risques, de définir et mettre en œuvre les politiques de sécurité, ainsi que de piloter les audits et les plans de remédiation. Vous interviendrez également sur la gestion des incidents de sécurité, l'analyse des menaces, le renforcement des dispositifs de protection et la mise en conformité avec les normes et réglementations en vigueur. Vous collaborerez étroitement avec les équipes infrastructure, réseau, systèmes et développement afin d'intégrer les bonnes pratiques de sécurité dans les projets. Une solide expertise en cybersécurité, une bonne connaissance des environnements techniques et des référentiels tels que ISO 27001, NIST ou ANSSI sont attendues, ainsi qu'un esprit d'analyse, de la rigueur et une forte capacité à anticiper les risques.",
+      "entreprise": "CGI",
+      "contrat": "CDI",
+      "domaine": "Développement",
+      "lieu": "Paris - 75",
+      "salaireAnnuelMin": 40000,
+      "salaireAnnuelMax": 45000,
       "expAnneeMini": 8,
       "datePublication": "01/05/2026"
     }
@@ -152,14 +165,14 @@
       "id": "2",
       "nom": "ivan",
       "email": "ivan@auboulot.fr",
-      "password": "user123",
+      "password": "Thispasswordissecure",
       "role": "user",
       "offres": []
     },
     {
       "nom": "zahia",
       "email": "zahia@auboulot.fr",
-      "password": "1234",
+      "password": "Thatsapassword123",
       "role": "user",
       "id": "KnB0QOZFytQ",
       "offres": ["1", "2", "3", "4", "9", "8", "2", "6", "10", "5", "11"]
