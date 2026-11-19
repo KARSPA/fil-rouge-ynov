@@ -150,8 +150,8 @@
     },
     {
       "id": "2",
-      "nom": "Yvan",
-      "email": "Yvan@auboulot.fr",
+      "nom": "ivan",
+      "email": "ivan@auboulot.fr",
       "password": "user123",
       "role": "user",
       "offres": []

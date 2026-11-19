@@ -26,6 +26,7 @@ export default function Navigation() {
         logout();
         navigate("/");
     }
+    
 
     return (
         <nav className="navbar au-boulot-nav px-3 gap-2">

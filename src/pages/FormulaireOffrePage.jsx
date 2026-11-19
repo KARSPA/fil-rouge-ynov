@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DEPARTEMENTS, DOMAINES, TYPE_CONTRAT } from "../assets/constantes.js";
 import { addOffer } from "../services/offresService.js";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
 import ModaleAnnulation from "../components/ModaleAnnulation.jsx";
 
@@ -92,9 +92,11 @@ function FormulaireOffrePage() {
             .catch((err) => console.error(err));
     }
 
-    // Garde-fou : un visiteur ou un non-admin ne voit jamais le formulaire
+    // Garde-fou : seul un admin connecté accède au formulaire.
+    // Tout autre visiteur qui force l'URL est renvoyé vers la page
+    // de connexion, même en accès direct (exigence du cahier des charges)
     if (!user || user.role !== "admin") {
-        return null;
+        return <Navigate to="/connexion" replace />;
     }
 
     return (
