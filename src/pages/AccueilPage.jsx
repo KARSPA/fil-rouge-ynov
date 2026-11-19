@@ -201,7 +201,7 @@ export default function AccueilPage() {
         </Accordion.Item>
       </Accordion>
 
-      <h2 className="rubrique mt-4">Les offres</h2>
+      <h2 className="rubrique mt-4">Les offres <span>({displayedOffers.length})</span></h2>
 
       <div className="cadre-offres mt-3 mb-5">
         {displayedOffers.length === 0 ? (
