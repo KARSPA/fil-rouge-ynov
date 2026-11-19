@@ -1,184 +1,534 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+/* =====================================================================
+   App.css — la DA "Au Boulot !"
+   Sommaire :
+     1. Palette : les variables couleur, la seule source de vérité
+     2. Base : page, typographie commune aux titres
+     3. Navbar : fond, liens, marque, badge de session
+     4. Bandeau d'accueil : bannière et titres de rubrique
+     5. Cartes d'offres : conteneur, grille, carte, image, titre, date
+     6. Badges : information (bleu pâle) et état de postulation (vert)
+     7. Fiche détail : cadre, photo, message de retour
+     8. Formulaires : titres, champs, messages, liens, labels
+     9. Boutons : gabarit bleu commun, variantes, retour, état désactivé
+    10. Bandeaux d'actions : rouge (admin) et bleu pâle (positif)
+    11. Filtres par domaines : boutons à bascule et accordéon hôte
+    12. Modales : cadre maison et swap de texte de confirmation
+    13. Barre de recherche : input et bouton d'un seul bloc
+   ---------------------------------------------------------------------
+   Règles d'or :
+   - Les classes ne changent jamais de nom : le JSX s'appuient dessus.
+   - Toute couleur vit dans la palette : rien en dur dans les sections.
+   ===================================================================== */
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+/* ===== 1. Palette : la seule source de vérité des couleurs ===== */
+:root {
+    /* Encres et fonds */
+    --encre: #1b1b1b;          /* le noir maison : cadres, textes */
+    --blanc: #fff;
+    --creme: #fdf6e3;          /* le fond de page */
+
+    /* Les bleus : l'action, son survol, et l'information */
+    --bleu: #0d6efd;           /* les actions principales : navbar, cartes, filtres actifs */
+    --bleu-fonce: #084298;     /* le survol des actions, l'écriture des badges d'info */
+    --bleu-info: #cfe2ff;      /* les fonds d'information : badges, survol des filtres */
+
+    /* Les rouges : le sérieux et le danger */
+    --rouge-sombre: #780000;  /* les fonds sérieux : navbar, bandeau admin */
+    --rouge-vif: #c1121f;     /* l'action dangereuse et les ombres dures */
+
+    /* Les tons de message et d'état */
+    --rose-pale: #ffd7d7;      /* les liens de navbar au survol */
+    --rose-message: #ffe9ec;  /* le texte des messages sur fond noir */
+    --vert-connecte: #b7e4c7; /* le témoin de connexion et l'état "déjà postulé" */
+
+    /* Les oranges : la modification */
+    --orange: #f77f00;        /* modifier */
+    --orange-brule: #d9480f; /* modifier au survol */
 }
 
-.hero {
-  position: relative;
+/* ===== 2. Base ===== */
+/* La page : fond crème, écriture encre, corps en Verdana */
+body {
+    font-family: Verdana, Geneva, sans-serif;
+    background: var(--creme);
+    color: var(--encre);
+    font-size: 0.95rem;
+}
 
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
+/* Les titres : la police de caractère de la maison */
+h1, h2, .navbar-brand {
+    font-family: "Archivo Black", Verdana, sans-serif;
+}
 
-  .base {
-    width: 170px;
+/* ===== 3. Navbar ===== */
+/* La barre : fond rouge sérieux, liseré bleu en dessous */
+.au-boulot-nav {
+    background: var(--rouge-sombre);
+    border-bottom: 4px solid var(--bleu);
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+}
+
+/* Les liens de navigation : majuscules espacées à l'ombre d'encre */
+.au-boulot-nav .nav-link {
+    text-shadow: 1px 1px 0 var(--encre);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+/* Le lien visité ou survolé : le rose pâle, souligné bas */
+.au-boulot-nav .nav-link:hover,
+.au-boulot-nav .nav-link.active {
+    color: var(--rose-pale) !important;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* La marque : pastille noire, immuable au survol */
+.au-boulot-brand {
+    background: var(--encre);
+    color: var(--blanc) !important;
+    padding: 4px 12px;
+    margin-right: 24px;
+}
+.au-boulot-brand:hover {
+    color: var(--blanc) !important;
+}
+
+/* Le badge de session : écriture verte soulignée, sans cadre,
+   le prénom garde ses minuscules */
+.nav-connected-badge {
+    color: var(--vert-connecte);
+    text-shadow: 1px 1px 0 var(--encre);
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: none;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1.5px;
+}
+
+/* ===== 4. Bandeau d'accueil ===== */
+/* La bannière : photo de fond, liseré bleu en dessous */
+.banner {
     position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
-}
-
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
+    background-image: url("/background_banner.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    border-bottom: 4px solid var(--bleu);
     text-align: center;
-  }
+    padding: 70px 10px 80px;
+    overflow: hidden;
 }
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+/* Les textes de la bannière : pastilles noires posées sur la photo */
+.banner h1, .banner p {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+.banner h1 {
+    background: var(--encre);
+    color: var(--blanc);
+    padding: 4px 18px;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0 auto 10px;
+}
+.banner p {
+    background: var(--encre);
+    color: var(--rose-message);
+    padding: 3px 12px;
+    font-style: italic;
+    margin: 0 auto;
 }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
+/* Le titre de rubrique : rouge, souligné d'un trait bleu */
+.rubrique {
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--rouge-sombre);
+    border-bottom: 3px solid var(--bleu);
+    padding-bottom: 4px;
+}
 
-  .logo {
-    height: 18px;
-  }
+/* ===== 5. Cartes d'offres ===== */
+/* Le conteneur des offres : le grand cadre blanc à ombre rouge */
+.cadre-offres {
+    background: var(--blanc);
+    border: 3px solid var(--encre);
+    box-shadow: 8px 8px 0 var(--rouge-vif);
+    padding: 16px;
+}
 
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
+/* La grille : deux colonnes égales, cartes de même hauteur */
+.grille-offres {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+.grille-offres > * {
+    height: 100%;
+}
+
+/* La carte : bordure encre, ombre bleue dure */
+.offer-card {
+    box-shadow: 5px 5px 0 var(--bleu);
+    border: 2px solid var(--encre) !important;
+    border-radius: 0 !important;
+}
+
+/* La colonne image : largeur fixe, alignée carte à carte */
+.carte-img-colonne {
+    width: 140px;
+}
+
+/* La photo de carte : 140x90, cadrée, bordée maison */
+.carte-img {
+    width: 140px;
+    height: 90px;
+    object-fit: cover;
+    border: 2px solid var(--encre);
+    border-radius: 0;
+}
+
+/* Le titre de l'offre : majuscules, la police des titres */
+.carte-titre {
+    font-family: "Archivo Black", Verdana, sans-serif;
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+/* La date de publication : petite italique grave du bas de colonne */
+.carte-date {
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+/* ===== 6. Badges ===== */
+/* L'information (domaine, contrat, lieu, salaire, expérience) :
+   bleu pâle, écriture bleu foncé, coins droits */
+.badge-info {
+    background: var(--bleu-info);
+    color: var(--bleu-fonce);
+    border: 1px solid var(--bleu-fonce);
+    border-radius: 0;
+    font-weight: bold;
+}
+
+/* L'état de postulation : le vert de la session, sous la photo */
+.badge-deja-postule {
+    background: var(--vert-connecte);
+    color: var(--encre);
+    border: 1px solid var(--encre);
+    border-radius: 0;
+    font-weight: bold;
+}
+
+/* ===== 7. Fiche détail ===== */
+/* La fiche : le grand cadre blanc à ombre bleue */
+.fiche-offre {
+    background: var(--blanc);
+    border: 2px solid var(--encre);
+    border-radius: 0;
+    box-shadow: 6px 6px 0 var(--bleu);
+}
+
+/* La photo de la fiche : la grande soeur de celle des cartes */
+.fiche-offre-img {
+    width: 220px;
+    height: 150px;
+    object-fit: cover;
+    border: 2px solid var(--encre);
+    border-radius: 0;
+}
+
+/* Le message de la fiche (succès, échec) : bandeau noir, écriture blanche */
+.fiche-message {
+    background: var(--encre);
+    color: var(--blanc);
+    width: fit-content;
+    margin: 0 auto;
+    padding: 4px 14px;
+    font-weight: bold;
+}
+
+/* ===== 8. Formulaires ===== */
+/* Le titre de formulaire : la pastille noire, centrée */
+.auth-titre {
+    background: var(--encre);
+    color: var(--blanc);
+    width: fit-content;
+    margin: 0 auto;
+    padding: 4px 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;      /* centre chaque ligne des titres qui se replient */
+}
+
+/* Le champ : fond crème, bordure encre, sans arrondi */
+.auth-input {
+    background: var(--creme);
+    border: 2px solid var(--encre);
+    border-radius: 0;
+    font-family: inherit;
+}
+
+/* Le champ actif : fond blanc, liseré bleu maison, sans ombre floue */
+.auth-input:focus {
+    background: var(--blanc);
+    border-color: var(--bleu);
+    box-shadow: none;
+    outline: none;
+}
+
+/* Le message de formulaire : bandeau noir, écriture rose */
+.auth-message {
+    background: var(--encre);
+    color: var(--rose-message);
+    width: fit-content;
+    padding: 3px 12px;
+    margin: 0 auto 16px;
+}
+
+/* Le lien d'action de texte (bascule connexion/inscription) */
+.auth-lien {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--rouge-sombre);
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+}
+.auth-lien:hover {
+    color: var(--rouge-vif);
+}
+
+/* Le label de champ : plus compact dans les colonnes étroites */
+.form-label {
+    font-size: 0.85rem;
+}
+
+/* ===== 9. Boutons ===== */
+/* Le gabarit bleu commun : navbar, bandeaux d'actions, bouton de carte.
+   Seuls les paddings (ci-dessous) différencient les trois usages. */
+.btn-nav-bleu,
+.btn-actions-bandeau,
+.btn-carte-voir {
+    background: var(--bleu);
+    border: 2px solid var(--encre);
+    border-radius: 0;
+    color: var(--encre);
+    font-family: inherit;      /* les <button> n'héritent pas de la police de page */
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
+    cursor: pointer;
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+/* Le survol du gabarit : bleu foncé, écriture blanche */
+.btn-nav-bleu:hover,
+.btn-actions-bandeau:hover,
+.btn-carte-voir:hover {
+    background: var(--bleu-fonce);
+    color: var(--blanc);
+    text-decoration: none;
 }
 
-.ticks {
-  position: relative;
-  width: 100%;
+/* Les trois usages du gabarit : leurs paddings respectifs */
+.btn-nav-bleu {
+    display: inline-block;
+    padding: 4px 10px;
+}
+.btn-actions-bandeau {
+    padding: 6px 16px;
+}
+.btn-carte-voir {
+    display: inline-block;
+    padding: 4px 14px;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+/* L'action désactivée (déjà sur le coup) : assombrie, curseur neutre */
+.btn-actions-bandeau:disabled {
+    opacity: 0.7;
+    cursor: default;
+}
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+/* Modifier : l'orange de la propagande */
+.btn-actions-modif {
+    background: var(--orange);
+    color: var(--encre);
+}
+.btn-actions-modif:hover {
+    background: var(--orange-brule);
+    color: var(--blanc);
+}
+
+/* Supprimer : le rouge du danger, écriture blanche pour le contraste */
+.btn-actions-suppr {
+    background: var(--rouge-vif);
+    color: var(--blanc);
+}
+.btn-actions-suppr:hover {
+    background: var(--rouge-sombre);
+    color: var(--blanc);
+}
+
+/* Le retour : discret, bordure fine, coins souples; s'inverse au survol */
+.btn-retour {
+    background: transparent;
+    border: 1.5px solid var(--encre);
+    border-radius: 6px;
+    color: var(--encre);
+    padding: 4px 12px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: normal;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn-retour:hover {
+    background: var(--encre);
+    color: var(--blanc);
+}
+
+/* ===== 10. Bandeaux d'actions ===== */
+/* Le bandeau rouge : réservé aux actions d'admin (modifier/supprimer) */
+.bandeau-actions {
+    background: var(--rouge-sombre);
+    border: 2px solid var(--encre);
+    box-shadow: 6px 6px 0 var(--rouge-vif);
+    margin-top: 16px;
+}
+
+/* Le bandeau positif : motiver, créer, postuler; jamais de rouge dedans */
+.bandeau-positif {
+    background: var(--bleu-info);
+    border: 2px solid var(--encre);
+    box-shadow: 6px 6px 0 var(--bleu);
+    margin-top: 16px;
+}
+
+/* ===== 11. Filtres par domaines ===== */
+/* Les boutons à bascule : une seule recette pour "Aucun filtre"
+   et les domaines. Transparent au repos, bleu pâle au survol,
+   bleu action en état actif (coché). */
+.checkbox-filter-btn,
+.none-domain-filter-btn {
+    background: transparent;
+    border: 2px solid var(--encre);
+    border-radius: 0;
+    color: var(--encre);
+    padding: 6px 16px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+.checkbox-filter-btn:hover,
+.none-domain-filter-btn:hover {
+    background: var(--bleu-info);
+    color: var(--bleu-fonce);
+}
+.checkbox-filter-btn.active,
+.none-domain-filter-btn.active {
+    background: var(--bleu);
+    color: var(--blanc);
+}
+
+/* L'accordéon hôte des filtres : contour encre, ombre rouge dure */
+.accordion-shadow {
+    outline: 1px solid var(--encre);
+    box-shadow: 5px 5px 0 var(--rouge-vif);
+}
+
+/* ===== 12. Modales ===== */
+/* Le cadre de modale : crème, bordé, coins droits, ombre d'encre */
+.modale-da-content {
+    background: var(--creme);
+    border: 2px solid var(--encre);
+    border-radius: 0;
+    box-shadow: 6px 6px 0 var(--encre);
+    font-family: inherit;
+}
+.modale-da-content .modal-header,
+.modale-da-content .modal-footer {
+    border-color: var(--encre);
+}
+
+/* Le swap de texte de confirmation : "Tu es sûr ?" devient
+   "Je confirme"/"J'abandonne" au survol, sans changer la largeur */
+.modale-confirm {
+    min-width: 170px;
+}
+.modale-confirm .texte-confirm {
+    display: none;
+}
+.modale-confirm:hover .texte-question {
+    display: none;
+}
+.modale-confirm:hover .texte-confirm {
+    display: inline;
+}
+
+/* ===== 13. Barre de recherche ===== */
+/* Le bloc : input et bouton collés, un seul objet à l'ombre rouge */
+.barre-recherche {
+    display: flex;
+    gap: 0;
+    box-shadow: 5px 5px 0 var(--rouge-vif);
+    margin-bottom: 24px;
+}
+
+/* L'input : prend toute la place, bordure droite retirée à la jointure */
+.barre-recherche-input {
+    flex-grow: 1;
+    background: var(--creme);
+    border: 2px solid var(--encre);
+    border-right: none;
+    border-radius: 0;
+    padding: 8px 14px;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+.barre-recherche-input:focus {
+    outline: none;
+    border-color: var(--bleu);
+}
+
+/* Le bouton "Fouiller" : rouge vif, passe au rouge sombre au survol */
+.barre-recherche-btn {
+    background: var(--rouge-vif);
+    border: 2px solid var(--encre);
+    border-radius: 0;
+    color: var(--blanc);
+    padding: 8px 20px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+.barre-recherche-btn:hover {
+    background: var(--rouge-sombre);
+    color: var(--blanc);
 }
