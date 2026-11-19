@@ -77,18 +77,17 @@ export default function AuthentificationPage() {
     }
 
     try {
-      const response =  await addUser({
+      const response = await addUser({
         nom: nom.trim(),
         email: email.trim(),
         password,
         role: "user",
       });
-      if (response.status){
-        setMessage("Cette addresse mail est déjà utilisée.")
-        return
+      if (!response.status) {
+        setMessage("Cette addresse mail est déjà utilisée.");
+        return;
       }
-      
-      
+
       setMode("connexion");
       setMessage("Compte créé ! Connecte-toi avec tes identifiants.");
       setPassword("");

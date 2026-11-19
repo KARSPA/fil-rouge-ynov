@@ -14,7 +14,7 @@ export async function addUser(nouvelUser) {
 
   // 2. On voit si le mail de l'utilisateur correspond déjà à une addresse utilisée
 
-  if (users.contains((x) => x.email === nouvelUser.email)) {
+  if (users.some((x) => x.email === nouvelUser.email)) {
     return { status: false };
   }
 
