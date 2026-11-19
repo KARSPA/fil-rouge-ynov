@@ -15,7 +15,7 @@ export default function OffreCarte({ offre, applied }) {
       {/* Colonne image : photo, état de postulation, date en bas */}
       <div className="d-flex flex-column flex-shrink-0 carte-img-colonne">
         <img
-          src="https://placehold.co/400x250"
+          src={`../../public/${offre.domaine}-img.jpg`}
           alt="image offre"
           className="carte-img"
         />
